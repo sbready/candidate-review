@@ -7,6 +7,8 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
     , authControllers = require('./controllers/auth')
+    , usersControllers = require('./controllers/users')
+    , candidatesControllers = require('./controllers/candidates')
 
 const app = express()
 
@@ -22,12 +24,14 @@ app.use( session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 50000
+        maxAge: 100000 //10min
     }
 }))
 
 //app.use(express.static(__dirname+ '/../build'))
 
+
+//passport and session
 app.use( passport.initialize() )
 app.use( passport.session() )
 
@@ -43,6 +47,7 @@ passport.use( new Auth0Strategy ({
     let userData = profile._json,
         auth_id = userData.user_id.split('|')[1]
 
+        //check find_user, create_user schema and make adjustments
     db.find_user([auth_id]).then( user => {
         if ( user[0] ) {
             return done( null, user[0].id )
@@ -55,10 +60,23 @@ passport.use( new Auth0Strategy ({
     })
 }))
 
+//authentication endpoints
 app.get('/auth', authControllers.get_auth)
 app.get('/auth/callback', authControllers.get_auth_callback)
 app.get('/auth/verify', authControllers.get_auth_verify)
-app.get('auth/logout', authControllers.get_logout)
+app.get('/auth/logout', authControllers.get_logout)
+
+//users endpoints
+    //get endpoint checking usertype (user, candidate or admin) giving them proper permissions
+app.put('/users/update_user', usersControllers.update_user)
+
+//candidates endpoints
+app.put('/candidates/update_candidate', candidatesControllers.update_candidate)
+
+//profile endpoints
+    //get endpoint pulling information from database to populate candidate profile page info (profile pic, name, title, party, bio, social media, photos, policy cards)
+
+
 
 passport.serializeUser(function( ID, done ){
     done( null, ID )
