@@ -6,6 +6,7 @@ const express = require('express')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
+    , S3 = require('./S3.js')
     , authControllers = require('./controllers/auth')
     , usersControllers = require('./controllers/users')
     , candidatesControllers = require('./controllers/candidates')
@@ -14,6 +15,8 @@ const app = express()
 
 app.use( cors() )
 app.use( bodyParser.json() )
+
+S3(app)
 
 massive(process.env.DB_CONNECTION).then( db => {
     app.set( 'db', db )
@@ -44,37 +47,39 @@ passport.use( new Auth0Strategy ({
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
     const db = app.get( 'db' )
+
+    //Google Auth Start
     let userData = profile._json,
         auth_id = userData.user_id.split('|')[1]
 
-        //check find_user, create_user schema and make adjustments
     db.find_user([auth_id]).then( user => {
         if ( user[0] ) {
             return done( null, user[0].id )
         } else {
-            db.create_user([userData.name, userData.email, userData.picture, auth_id])
+            db.create_user([userData.given_name, userData.family_name, userData.email, userData.gender, auth_id])
                 .then( user => {
                     return done( null, user[0].id )
                 })
         }
     })
+    //Google Auth End
+
 }))
 
-//authentication endpoints
-app.get('/auth', authControllers.get_auth)
-app.get('/auth/callback', authControllers.get_auth_callback)
-app.get('/auth/verify', authControllers.get_auth_verify)
-app.get('/auth/logout', authControllers.get_logout)
+//authentication endpoints - complete
+app.get('/auth', authControllers.get_auth) // authenticate auth0
+app.get('/auth/callback', authControllers.get_auth_callback) // set session
+app.get('/auth/verify', authControllers.get_auth_verify) // verify logged in user and session
+app.get('/auth/logout', authControllers.get_logout) // logout
 
 //users endpoints
-    //get endpoint checking usertype (user, candidate or admin) giving them proper permissions
-app.put('/users/update_user', usersControllers.update_user)
+app.put
+app.put('/users/update_user', usersControllers.update_user) // update user table
 
 //candidates endpoints
-app.put('/candidates/update_candidate', candidatesControllers.update_candidate)
-
-//profile endpoints
-    //get endpoint pulling information from database to populate candidate profile page info (profile pic, name, title, party, bio, social media, photos, policy cards)
+app.post('/candidates/create_candidate', candidatesControllers.create_candidate) // create candidate row
+app.put('/candidates/update_candidate', candidatesControllers.update_candidate) // update candidate table
+// app.get('/candidates/candidate_profile', candidatesControllers.candidate_profile) //gets candidate data to populate candidate profile page
 
 
 
