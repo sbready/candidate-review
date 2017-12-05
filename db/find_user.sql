@@ -1,0 +1,1 @@
+select * from users where auth_id = $1; /* auth_id will change */
