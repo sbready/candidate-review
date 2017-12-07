@@ -11,7 +11,7 @@ export function getUser(){
     .then( res => res.data )
     return {
         type: GET_USER,
-        payload: userInfo
+        payload: UserInfo
     }
 }
 

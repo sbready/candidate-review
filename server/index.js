@@ -73,7 +73,6 @@ app.get('/auth/verify', authControllers.get_auth_verify) // verify logged in use
 app.get('/auth/logout', authControllers.get_logout) // logout
 
 //users endpoints
-app.put
 app.put('/users/update_user', usersControllers.update_user) // update user table
 
 //candidates endpoints

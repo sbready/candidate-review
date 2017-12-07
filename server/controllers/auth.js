@@ -1,3 +1,5 @@
+const passport = require('passport')
+
 module.exports = {
 
     get_auth( req, res ) {
@@ -6,7 +8,7 @@ module.exports = {
 
     get_auth_callback( req, res ) {
         passport.authenticate('auth0', {
-            successRedirect: 'http://localhost:3005/',
+            successRedirect: 'http://localhost:3005/addinfocatch',
             failureRedirect: 'http://localhost:3000/auth'
         })
     }, 
