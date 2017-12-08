@@ -53,7 +53,7 @@ CREATE TABLE cities (
     id serial primary key,
     city_name TEXT,
     county_name TEXT,
-    stateid INTEGER references states(id)
+    stateid INTEGER references states(state_abbrev)
 );
 
 CREATE TABLE photos (

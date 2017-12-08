@@ -2,17 +2,8 @@ import React from 'react'
 
 //Material-UI
 import { AppBar, IconButton, Drawer, RaisedButton } from 'material-ui'
-import withStyles from 'material-ui/withstyles'
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import MenuList from './MenuList';
-
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        lineItem: 'center'
-    }
-})
 
 class MatAppBar extends React.Component {
     constructor(props) {
@@ -31,10 +22,8 @@ class MatAppBar extends React.Component {
 
     render() {
 
-        const {classes} = this.props
-
         const rightButtons = (
-            <div className={classes.container}>
+            <div style={{padding: '10px'}}>
                 <RaisedButton label="Login" onClick={this.gotoAuth}/>
                 <IconButton onClick={this.openDrawer}><Menu/></IconButton>
             </div>
@@ -64,4 +53,4 @@ class MatAppBar extends React.Component {
     }
 }
 
-export default withStyles(styles)(MatAppBar)
+export default MatAppBar
