@@ -38,7 +38,7 @@ class MatAppBar extends React.Component {
                     onRequestChange={(open) => this.setState({ open })}
                     openSecondary={true}
                 >
-                <MenuList/>
+                <MenuList closeDrawer={this.closeDrawer}/>
                 </Drawer>
                 <AppBar
                     // style={{backgroundColor: 'rgba(250, 150, 0, 0.3'}}

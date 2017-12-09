@@ -74,8 +74,8 @@ passport.use(new Auth0Strategy({
 //authentication endpoints - complete
 app.get('/auth', passport.authenticate('auth0')) // authenticate auth0
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3005/addinfocatch',
-    failureRedirect: 'http://localhost:3000/auth'
+    successRedirect: 'http://localhost:3000/#/addinfocatch',
+    failureRedirect: 'http://localhost:3000/#/auth'
     })) // set session
 app.get('/auth/verify', function ( req, res ) {
     let response = req.user,

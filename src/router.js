@@ -8,6 +8,7 @@ import RegisterVoter from './components/RegisterVoter/RegisterVoter'
 import RegisterCandidate from './components/RegisterCandidate/RegisterCandidate'
 import MyBallot from './components/MyBallot/MyBallot'
 import Settings from './components/Settings/Settings'
+import Addinfocatch from './components/Addinfocatch/Addinfocatch'
 
 export default class Router extends Component {
     render(){
@@ -18,9 +19,10 @@ export default class Router extends Component {
                 <Route path='/registercandidate' component={ RegisterCandidate } /> 
                 <Route path='/myballot' component={ MyBallot } /> 
                 <Route path='/settings' component={ Settings } /> 
+                <Route path='/state/:state/Federal_Election' component={ FederalElectionChoice } />
+                <Route path='/state/:state/State_Election' component={ StateElectionChoice } />
                 <Route path='/state/:state' component={ StateLandingChoice } />
-                <Route path='/state/:state/:federalelection' component={ FederalElectionChoice } />
-                <Route path='/state/:state/:stateelection' component={ StateElectionChoice } />
+                <Route path='/addinfocatch' component={ Addinfocatch } />
             </Switch>
         )
     }

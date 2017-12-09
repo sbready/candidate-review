@@ -13,10 +13,9 @@ class StateLandingChoice extends Component {
 
     this.state = {
       states: [],
-      state: props.match.params,
+      state: props.match.params.state,
       value: ''
     }
-    console.log(this.state.state)
     this.handleChange=this.handleChange.bind(this)
     this.handleClick=this.handleClick.bind(this)
   }
@@ -30,11 +29,15 @@ class StateLandingChoice extends Component {
   }
 
   handleChange(e) {
+    this.setState({
+      state: e.target.value
+    })
     this.props.history.push(`/state/${e.target.value}`)
    } 
 
    handleClick(e) {
-       this.props.history.push(`/state/${this.props.state}/${e.target.value}`)
+     console.log(e.target.name)
+       this.props.history.push(`/state/${this.state.state}/${e.target.name}`)
    }
 
   render() {
@@ -50,8 +53,8 @@ class StateLandingChoice extends Component {
           })}
         </select>
         <h2>Select the type of election you want information about</h2>
-        <button onClick={this.handleClick}>State Elections</button>
-        <button onClick={this.handleClick}>Federal Elections</button>
+        <button onClick={ e => this.handleClick( e )} name='State_Election'>State Elections</button>
+        <button onClick={ e => this.handleClick( e )} name='Federal_Election'>Federal Elections</button>
       </div>
     );
   }
