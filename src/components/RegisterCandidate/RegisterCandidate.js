@@ -1,10 +1,33 @@
-import React, { Component }from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUser } from './../../ducks/users';
+import '../RegisterCandidate/RegisterCandidate.css';
+import MatAppBar from './../Material-UI/MatAppBar';
+import CandidateVerticalStepper from './../Material-UI/CandidateVerticalStepper';
 
-export default class RegisterCandidate extends Component {
-render() {
-    return(
-        <div>
-        </div>
-    )
+class RegisterCandidate extends Component {
+
+    
+
+    componentDidMount() {
+        this.props.getUser()
+    }
+
+    render() {
+        return (
+            <div>
+                <MatAppBar/>
+                <CandidateVerticalStepper user={this.props.user}/>
+            </div> 
+        )
+    }
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.userData
+    }
 }
+
+export default connect(mapStateToProps, { getUser })(RegisterCandidate)

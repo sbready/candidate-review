@@ -14,6 +14,7 @@ export default class Router extends Component {
     render(){
         return(
             <Switch>
+            <div>
                 <Route exact path='/' component={ App } /> 
                 <Route path='/registervoter' component={ RegisterVoter } /> 
                 <Route path='/registercandidate' component={ RegisterCandidate } /> 
@@ -23,6 +24,7 @@ export default class Router extends Component {
                 <Route path='/state/:state/State_Election' component={ StateElectionChoice } />
                 <Route path='/state/:state' component={ StateLandingChoice } />
                 <Route path='/addinfocatch' component={ Addinfocatch } />
+            </div>
             </Switch>
         )
     }

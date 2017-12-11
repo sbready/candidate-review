@@ -5,9 +5,12 @@ import {
   StepLabel,
   StepContent,
 } from 'material-ui/Stepper';
+import { Card, CardTitle, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MatDatePicker from '../Material-UI/MatDatePicker'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import SimpleAddressForm from '../Outside APIs/SimpleAddressForm'
 import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
@@ -27,6 +30,7 @@ class CandidateVerticalStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
+    value: ' '
   };
 
   handleNext = () => {
@@ -36,6 +40,8 @@ class CandidateVerticalStepper extends React.Component {
       finished: stepIndex >= 2,
     });
   };
+
+  handleSelectChange = (event, index, value) => this.setState({value});
 
   handlePrev = () => {
     const {stepIndex} = this.state;
@@ -72,64 +78,145 @@ class CandidateVerticalStepper extends React.Component {
 
   render() {
     const {stepIndex} = this.state;
-console.log(this.props.user.name_first)
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
-      {this.props.user.id &&
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step> 
-            <StepLabel>Verify Your Information</StepLabel>
+            <StepLabel>General Information</StepLabel>
             <StepContent>
               <p>
-                In order to proceed, we would ask that you quickly verify the following inforamtion: 
+              Please add some general information about you are your candidacy for office:
               </p>
-              <TextField
-                defaultValue={ this.props.user.name_first }
-                floatingLabelText='First Name'
+              <SelectField
+                floatingLabelText="Election Type:"
                 floatingLabelFixed={false}
-              />
+                floatingLabelStyle={{color: 'red'}}
+                value={this.state.value}
+                onChange={this.handleSelectChange}
+              >
+                <MenuItem value={1} primaryText="State Election" />
+                <MenuItem value={2} primaryText="Federal Election" />
+              </SelectField>
+              <br/>
+              <SelectField
+                floatingLabelText="Political Affiliation:"
+                floatingLabelFixed={false}
+                floatingLabelStyle={{color: 'red'}}
+                value={this.state.value}
+                onChange={this.handleSelectChange}
+               >
+                <MenuItem value={1} primaryText="Republican" />
+                <MenuItem value={2} primaryText="Democrat" />
+                <MenuItem value={3} primaryText="Libertarian" />
+                <MenuItem value={4} primaryText="Constitution" />
+                <MenuItem value={5} primaryText="Green" />
+                <MenuItem value={6} primaryText="Independent" />
+              </SelectField>
               <br/>
               <TextField
-                defaultValue={ this.props.user.name_last }
-                floatingLabelText='Last Name'
+                defaultValue=''
+                floatingLabelText='Biography'
                 floatingLabelFixed={false}
-              />
-              <br/>
-              <TextField
-                defaultValue={ this.props.user.gender }
-                floatingLabelText='Gender'
-                floatingLabelFixed={false}
-              />
-              <br/>
-              <TextField
-                defaultValue={ this.props.user.email }
-                floatingLabelText='Email'
-                floatingLabelFixed={false}
+                hintText='Add your Profile Here!'
               />
               <br/>
               {this.renderStepActions(0)}
             </StepContent>
           </Step>
           <Step> 
-            <StepLabel>Add Your Birthday</StepLabel>
+            <StepLabel>Add a Profile Biography</StepLabel>
             <StepContent>
-              <p>Please select your birthday.  We ask for this information so we can help make your experience on our site more personalized.  Some aspects of our site are disabled for users under the age of 18. </p>
+              <p>
+              Submit some information about yourself.  Add general information about your background and an overview on why you are interested in running for office.
+              </p>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Biography'
+                floatingLabelFixed={false}
+                hintText='Add your Profile Here!'
+                multiLine={true}
+                rows={2}
+              />
               <br/>
-              <MatDatePicker/>
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
           <Step> 
-            <StepLabel>Add your Address</StepLabel>
+            <StepLabel>Information Links</StepLabel>
             <StepContent>
-              <p>
-                Please add your address to your account.  We ask for this information so we can help make your experience on our site more personalized.  Some features on this site are interactive based on your location. 
-              </p>
+              <p>Link to profile pages and websites so the public can see who you are! </p>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Website'
+                floatingLabelFixed={false}
+                hintText='Enter Personal Website Link'
+              />
               <br/>
-              <SimpleAddressForm/>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Facebook'
+                floatingLabelFixed={false}
+                hintText='Enter Facebook Profile Link'
+              />
+              <br/>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Twitter'
+                floatingLabelFixed={false}
+                hintText='Enter Twitter Profile Link'
+              />
+              <br/>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Instagram'
+                floatingLabelFixed={false}
+                hintText='Enter Instagram Profile Link'
+              />
+              <br/>
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
+          <Step> 
+            <StepLabel>Campaign Contact Information</StepLabel>
+            <StepContent>
+              <p>
+                Enter information for constituents to contact your campaign 
+              </p>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Phone'
+                floatingLabelFixed={false}
+                hintText='Enter Phone Number'
+              />
+              <br/>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Email'
+                floatingLabelFixed={false}
+                hintText='Enter Campaign Email'
+              />
+              <br/>
+              {this.renderStepActions(3)}
+            </StepContent>
+          </Step>
+          <Step> 
+            <StepLabel>Policy</StepLabel>
+            <StepContent>
+              <p>
+                Please submit some of your policy beliefs 
+              </p>
+              <TextField
+                defaultValue=''
+                floatingLabelText='Policy'
+                floatingLabelFixed={false}
+                hintText='Enter Policy Information'
+                multiLine={true}
+                rows={2}
+              />
+              <br/>
+              {this.renderStepActions(4)}
+            </StepContent>
+        </Step>
         </Stepper>}
       </div>
     );

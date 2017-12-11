@@ -33,14 +33,13 @@ class FederalElectionChoice extends Component {
    } 
 
   render() {
-      console.log(this.props)
     return (
       <div className="StateLandingChoice">
       {this.props.match.params.state}
       <br/>
         {/* <MatAppBar/> */}
         <select onChange={this.handleChange} value={this.props.value ? this.props.value : '0'}>
-        <option value="0" disabled>Choose a State</option>
+          <option value="0" disabled>Choose a State</option>
           {this.state.states.map((e, i) => {
             return <option>{e.state_name}</option>
           })}

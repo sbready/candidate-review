@@ -1,14 +1,19 @@
 import React from 'react'
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete'
 
-class SimpleForm extends React.Component {
+class SimpleAddressForm extends React.Component {
+
   constructor(props) {
     super(props)
-    this.state = { address: '' }
+
+    this.state = { 
+      address: '' 
+    }
+
     this.onChange = (address) => this.setState({ address })
   }
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = ( event ) => {
     event.preventDefault()
 
     geocodeByAddress(this.state.address)
@@ -18,7 +23,6 @@ class SimpleForm extends React.Component {
   }
 
   render() {
-
     const AutocompleteItem = ({ suggestion }) => (<div><i className="fa fa-map-marker"/>{suggestion}</div>)
     
     const inputProps = {
@@ -41,4 +45,4 @@ class SimpleForm extends React.Component {
   }
 }
 
-export default SimpleForm
+export default SimpleAddressForm

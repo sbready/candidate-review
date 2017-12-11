@@ -119,7 +119,6 @@ class UserVerticalStepper extends React.Component {
         }
         
     render() {
-      console.log(this.props.user)
     const {stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
@@ -163,7 +162,7 @@ class UserVerticalStepper extends React.Component {
                 defaultValue={ this.props.user.email }
                 floatingLabelText='Email'
                 floatingLabelFixed={false}
-                errorText={!this.props.user.email && 'This field is Required'}
+                errorText={!this.props.email && 'This field is Required'}
                 onChange={ e => this.props.updateField(e.target.value, 'email') 
                 }
               />
@@ -173,7 +172,8 @@ class UserVerticalStepper extends React.Component {
           </Step>
           <Step> 
             <StepLabel>Add Your Birthday</StepLabel>
-            <StepContent>
+            <StepContent
+            >
               <p>Please select your birthday.  We ask for this information so we can help make your experience on our site more personalized.  Some aspects of our site are disabled for users under the age of 18. </p>
               <br/>
               <MatDatePicker/>
