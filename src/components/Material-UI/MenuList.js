@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+import { withRouter } from 'react-router-dom'
 import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Home from 'material-ui/svg-icons/action/home';
@@ -10,10 +11,10 @@ import Person from 'material-ui/svg-icons/social/person';
 import CheckBox from 'material-ui/svg-icons/toggle/check-box';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import { RaisedButton } from 'material-ui/RaisedButton';
+// import { RaisedButton } from 'material-ui/RaisedButton';
 
 
-export default class MenuList extends React.Component {
+class MenuList extends React.Component {
 
     constructor(props){
         super(props)
@@ -35,7 +36,7 @@ export default class MenuList extends React.Component {
 
     handleClickHome(e) {
         this.props.closeDrawer()
-        // this.props.history.push(`/`)
+        this.props.history.push(`/`)
     }
 
     handleClickRegister(e) {
@@ -52,7 +53,7 @@ export default class MenuList extends React.Component {
                     userVerified: false
                 })
             })
-        // this.props.history.push(`/registervoter`)
+        this.props.history.push(`/registervoter`)
     }
 
     handleClickBallot(e) {
@@ -64,7 +65,7 @@ export default class MenuList extends React.Component {
                     userVerified: false
                 })
             })
-        // this.props.history.push(`/myballot`)
+        this.props.history.push(`/myballot`)
     }
 
     handleClickSettings(e) {
@@ -76,7 +77,7 @@ export default class MenuList extends React.Component {
                     userVerified: false
                 })
             })
-        // this.props.history.push(`/settings`)
+        this.props.history.push(`/settings`)
     }
 
     render(){
@@ -95,17 +96,17 @@ export default class MenuList extends React.Component {
             />,
           ];
 
-        const styles = theme => ({
-            fab: {
-            margin: theme.spacing.unit * 2,
-        },
-            absolute: {
-            flip: false,
-            position: 'absolute',
-            bottom: 32,
-            right: 32,
-        },
-        });
+        // const styles = theme => ({
+        //     fab: {
+        //     margin: theme.spacing.unit * 2,
+        // },
+        //     absolute: {
+        //     flip: false,
+        //     position: 'absolute',
+        //     bottom: 32,
+        //     right: 32,
+        // },
+        // });
 
         return(
 
@@ -140,3 +141,4 @@ export default class MenuList extends React.Component {
     }
 }
 
+export default withRouter(MenuList)

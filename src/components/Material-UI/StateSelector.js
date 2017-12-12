@@ -1,7 +1,7 @@
 import React from 'react'
 
 import axios from 'axios'
-import router from './../../router'
+import { withRouter } from 'react-router-dom'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -27,20 +27,20 @@ class StateSelector extends React.Component {
     }
 
     handleChange(e) {
-        this.props.history.push(`/state/${e.target.value}`)
+        this.props.history.push(`/state/${e.target.innerText}`)
     } 
 
     render(){
         return (
             <div className="StateSelector">
                 <SelectField
-                    onChange={this.handleChange}
+                    onChange={ (e) => this.handleChange(e) }
                     value={this.props.value ? this.props.value : '0'}
                     hintText='Choose a State'
                     floatingLabelText=" "
                 >
-                    <MenuItem value={0} primaryText='Choose a State' disabled={true}/>
-                        {this.state.states.map((e,i) => {
+                    <MenuItem value={ null } primaryText="Choose a State" disabled={true}/>
+                    {this.state.states.map(( e, i ) => {
                         return <MenuItem primaryText={e.state_name} />
                     })}
                 </SelectField>
@@ -52,4 +52,4 @@ class StateSelector extends React.Component {
     }
  }
         
-export default StateSelector
+export default withRouter(StateSelector)

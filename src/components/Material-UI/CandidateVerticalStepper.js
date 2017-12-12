@@ -1,20 +1,16 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import {
   Step,
   Stepper,
   StepLabel,
   StepContent,
 } from 'material-ui/Stepper';
-import { Card, CardTitle, CardText } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import MatDatePicker from '../Material-UI/MatDatePicker'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import SimpleAddressForm from '../Outside APIs/SimpleAddressForm'
 import TextField from 'material-ui/TextField'
-import { connect } from 'react-redux'
-import { getUser } from './../../ducks/users'
 
 
 /**
@@ -30,19 +26,19 @@ class CandidateVerticalStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
-    value: ' '
+    value: ' ',
+    value2: ' '
   };
 
   handleNext = () => {
     const {stepIndex} = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      finished: stepIndex >= 4,
     });
   };
 
-  handleSelectChange = (event, index, value) => this.setState({value});
-
+  
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
@@ -50,34 +46,41 @@ class CandidateVerticalStepper extends React.Component {
     }
   };
 
+  handleFinish = () => {
+    this.props.history.push('/')
+  }
+
   renderStepActions(step) {
     const {stepIndex} = this.state;
-
+    
     return (
       <div style={{margin: '12px 0'}}>
-        <RaisedButton
-          label={stepIndex === 2 ? 'Finish' : 'Next'}
-          disableTouchRipple={true}
-          disableFocusRipple={true}
-          primary={true}
-          onClick={this.handleNext}
-          style={{marginRight: 12}}
+      <RaisedButton
+      label={stepIndex === 4 ? 'Finish' : 'Next'}
+      disableTouchRipple={true}
+      disableFocusRipple={true}
+      primary={true}
+      onClick={this.handleNext}
+      style={{marginRight: 12}}
+      />
+      {step > 0 && (
+        <FlatButton
+        label="Back"
+        disabled={stepIndex === 0}
+        disableTouchRipple={true}
+        disableFocusRipple={true}
+        onClick={this.handlePrev}
         />
-        {step > 0 && (
-          <FlatButton
-            label="Back"
-            disabled={stepIndex === 0}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            onClick={this.handlePrev}
-          />
-        )}
+      )}
       </div>
     );
   }
 
+  handleSelectChange = (event, index, value) => this.setState({value});
+  handleSelectChange2 = (event, index, value2) => this.setState({value2});
+  
   render() {
-    const {stepIndex} = this.state;
+    const {finished, stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
         <Stepper activeStep={stepIndex} orientation="vertical">
@@ -102,8 +105,8 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText="Political Affiliation:"
                 floatingLabelFixed={false}
                 floatingLabelStyle={{color: 'red'}}
-                value={this.state.value}
-                onChange={this.handleSelectChange}
+                value={this.state.value2}
+                onChange={this.handleSelectChange2}
                >
                 <MenuItem value={1} primaryText="Republican" />
                 <MenuItem value={2} primaryText="Democrat" />
@@ -112,13 +115,6 @@ class CandidateVerticalStepper extends React.Component {
                 <MenuItem value={5} primaryText="Green" />
                 <MenuItem value={6} primaryText="Independent" />
               </SelectField>
-              <br/>
-              <TextField
-                defaultValue=''
-                floatingLabelText='Biography'
-                floatingLabelFixed={false}
-                hintText='Add your Profile Here!'
-              />
               <br/>
               {this.renderStepActions(0)}
             </StepContent>
@@ -217,7 +213,10 @@ class CandidateVerticalStepper extends React.Component {
               {this.renderStepActions(4)}
             </StepContent>
         </Step>
-        </Stepper>}
+        </Stepper>
+        {finished && (
+          this.handleFinish()
+        )}
       </div>
     );
   }
@@ -225,4 +224,4 @@ class CandidateVerticalStepper extends React.Component {
 
 
 
-export default (CandidateVerticalStepper)
+export default withRouter(CandidateVerticalStepper)

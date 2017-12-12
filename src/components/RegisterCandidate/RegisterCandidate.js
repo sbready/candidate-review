@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser } from './../../ducks/users';
 import '../RegisterCandidate/RegisterCandidate.css';
 import MatAppBar from './../Material-UI/MatAppBar';
 import CandidateVerticalStepper from './../Material-UI/CandidateVerticalStepper';
+
 
 class RegisterCandidate extends Component {
 
@@ -30,4 +31,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getUser })(RegisterCandidate)
+export default withRouter(connect(mapStateToProps, { getUser })(RegisterCandidate))

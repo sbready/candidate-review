@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import router from './router';
+
 import axios from 'axios';
 
-// import MatAppBar from './components/Material-UI/MatAppBar'
-// import MatCompleted from './components/Material-UI/MatCompleted'
-// import Header from './components/Header/Header'
+import MatAppBar from './../Material-UI/MatAppBar'
+import StateSelector from './../Material-UI/StateSelector'
+
 
 class FederalElectionChoice extends Component {
 
@@ -29,24 +29,25 @@ class FederalElectionChoice extends Component {
   }
 
   handleChange(e) {
-    this.props.history.push(`/state/${e.target.value}`)
+    this.props.history.push(`/state/${e.target.innerText}`)
    } 
+
+  handleClick(e) {
+    console.log(e.target.name, e.target.innerText)
+    this.props.history.push(`${this.props.location.pathname}/${e.target.name}`)
+  }
 
   render() {
     return (
       <div className="StateLandingChoice">
       {this.props.match.params.state}
       <br/>
-        {/* <MatAppBar/> */}
-        <select onChange={this.handleChange} value={this.props.value ? this.props.value : '0'}>
-          <option value="0" disabled>Choose a State</option>
-          {this.state.states.map((e, i) => {
-            return <option>{e.state_name}</option>
-          })}
-        </select>
+        <MatAppBar/>
+        <StateSelector/>
+        
         <h2>Select the type of federal election you want information about</h2>
-        <button>Senate</button>
-        <button>House of Representatives</button>
+        <button onClick={ e => this.handleClick( e )} name='Senate'>Senate</button>
+        <button onClick={ e => this.handleClick( e )} name='House'>House of Representatives</button>
       </div>
     );
   }

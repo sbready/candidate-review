@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import App from './App'
 import StateLandingChoice from './components/StateLandingChoice/StateLandingChoice'
 import FederalElectionChoice from './components/FederalElectionChoice/FederalElectionChoice'
@@ -9,23 +9,27 @@ import RegisterCandidate from './components/RegisterCandidate/RegisterCandidate'
 import MyBallot from './components/MyBallot/MyBallot'
 import Settings from './components/Settings/Settings'
 import Addinfocatch from './components/Addinfocatch/Addinfocatch'
+import FederalSenate from './components/FederalSenate/FederalSenate'
+import FederalHouseofRepresentatives from './components/FederalHouseofRepresentatives/FederalHouseofRepresentatives'
 
-export default class Router extends Component {
+class Router extends Component {
     render(){
         return(
             <Switch>
-            <div>
                 <Route exact path='/' component={ App } /> 
+                <Route path='/addinfocatch' component={ Addinfocatch } />
                 <Route path='/registervoter' component={ RegisterVoter } /> 
                 <Route path='/registercandidate' component={ RegisterCandidate } /> 
                 <Route path='/myballot' component={ MyBallot } /> 
                 <Route path='/settings' component={ Settings } /> 
+                <Route path='/state/:state/Federal_Election/Senate' component={ FederalSenate } />
+                <Route path='/state/:state/Federal_Election/House' component={ FederalHouseofRepresentatives } />
                 <Route path='/state/:state/Federal_Election' component={ FederalElectionChoice } />
                 <Route path='/state/:state/State_Election' component={ StateElectionChoice } />
                 <Route path='/state/:state' component={ StateLandingChoice } />
-                <Route path='/addinfocatch' component={ Addinfocatch } />
-            </div>
             </Switch>
         )
     }
 }
+
+export default withRouter(Router)

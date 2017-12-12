@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import {
   Step,
   Stepper,
@@ -11,7 +12,7 @@ import MatDatePicker from '../Material-UI/MatDatePicker'
 import SimpleAddressForm from '../Outside APIs/SimpleAddressForm'
 import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
-import { getUser, updateField } from './../../ducks/users'
+import { updateField } from './../../ducks/users'
 
 /**
  * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
@@ -77,49 +78,50 @@ class UserVerticalStepper extends React.Component {
         //   }
         // };
         
-        onChange( e ) {
-          if (this.refs.name_first !== '') {
-            this.setState({
-              errorText: ''
-            })
-          } else {
-            this.setState({
-              errorText: 'This field is Required'
-            })
-          }
-        };
-        
-        renderStepActions(step) {
-          const {stepIndex} = this.state;
+  onChange( e ) {
+    if (this.refs.name_first !== '') {
+      this.setState({
+        errorText: ''
+      })
+    } else {
+      this.setState({
+        errorText: 'This field is Required'
+      })
+    }
+  };
+
+  handleFinish = () => {
+    this.props.history.push('/')
+  }
+  
+  renderStepActions(step) {
+    const {stepIndex} = this.state;    
           
-          
-          
-          
-          return (
-            <div style={{margin: '12px 0'}}>
-            <RaisedButton
-            label={stepIndex === 2 ? 'Finish' : 'Next'}
-            disableTouchRipple={true}
-            disableFocusRipple={true}
-            primary={true}
-            onClick={this.handleNext}
-            style={{marginRight: 12}}
-            />
-            {step > 0 && (
-              <FlatButton
-              label="Back"
-              disabled={stepIndex === 0}
-              disableTouchRipple={true}
-              disableFocusRipple={true}
-              onClick={this.handlePrev}
-              />
-            )}
-            </div>
-          );
-        }
+    return (
+      <div style={{margin: '12px 0'}}>
+      <RaisedButton
+      label={stepIndex === 2 ? 'Finish' : 'Next'}
+      disableTouchRipple={true}
+      disableFocusRipple={true}
+      primary={true}
+      onClick={this.handleNext}
+      style={{marginRight: 12}}
+      />
+      {step > 0 && (
+        <FlatButton
+        label="Back"
+        disabled={stepIndex === 0}
+        disableTouchRipple={true}
+        disableFocusRipple={true}
+        onClick={this.handlePrev}
+        />
+      )}
+      </div>
+    );
+  }
         
     render() {
-    const {stepIndex} = this.state;
+    const {finished, stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
       {this.props.user.id &&
@@ -192,6 +194,9 @@ class UserVerticalStepper extends React.Component {
             </StepContent>
           </Step>
         </Stepper>}
+        {finished && (
+          this.handleFinish()
+        )}
       </div>
     );
   }
@@ -201,4 +206,4 @@ function mapStateToProps(state) {
   return state
 }
 
-export default connect(mapStateToProps, {updateField})(UserVerticalStepper)
+export default withRouter(connect(mapStateToProps, {updateField})(UserVerticalStepper))
