@@ -46,6 +46,7 @@ export function createCandidateDataPush(CandidateStepperInfo){
     console.log('createCandidateducks')
     let promise = axios.post('/api/create_candidate', CandidateStepperInfo)
     .then( res => res.data )
+    .then( () => window.location.assign('/') )
     return { 
         type: CREATE_CANDIDATE,
         payload: promise
@@ -53,9 +54,10 @@ export function createCandidateDataPush(CandidateStepperInfo){
 }
 
 export function candidateDataPush(CandidateStepperInfo){
-    console.log('candidateducks')
+    console.log('updateCandidateducks')
     let promise = axios.put('/api/update_candidate', CandidateStepperInfo)
     .then( res => res.data )
+    .then( () => window.location.assign('/') )
     return { 
         type: UPDATE_CANDIDATE,
         payload: promise

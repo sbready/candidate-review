@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -12,14 +11,15 @@ class Candidatepop extends React.Component {
 
     render() {
         return (
+            // maybe change away from material ui
             <button>
                 <Card>
                     <CardHeader
-                        avatar="images/jsa-128.jpg"
+                        avatar='{this.props.user}'
                     />
                     <CardTitle 
-                        title="Candidate Name" 
-                        subtitle="Republican" 
+                        title='{this.props.user.name_first}'
+                        subtitle='{this.props.user}'
                     />
                     
                 </Card>
@@ -27,5 +27,6 @@ class Candidatepop extends React.Component {
         );
     }
 }
+  
+export default Candidatepop
 
-export default withRouter(Candidatepop)

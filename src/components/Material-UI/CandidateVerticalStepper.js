@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { createCandidateDataPush } from './../../ducks/users'
+import { createCandidateDataPush, candidateDataPush } from './../../ducks/users'
 import {
   Step,
   Stepper,
@@ -28,20 +29,34 @@ import TextField from 'material-ui/TextField'
 class CandidateVerticalStepper extends React.Component {
 
   state = {
+    biography: '',
+    website: '',
+    political_affiliation: '',
+    facebook: '', 
+    twitter: '',
+    instagram: '',
+    official_location: '',
+    phone: '',
+    policy: '',
+    campaign_email: '',
+    election_type: '',
+    federal_election_type: '',
+    state_election_type: '',
     finished: false,
-    stepIndex: 0,
-    election_type: ' ',
-    political_affiliation: ' ',
-    website: ' ',
-    facebook: ' ', 
-    twitter: ' ',
-    instagram: ' ',
-    phone: ' ',
-    campaign_email: ' ',
-    official_location: ' ',
-    federal_election_type: ' ',
-    state_election_type: ' '
+    stepIndex: 0
   };
+
+  // Method for Election Type
+  handleElectionTypeChange = (event, index, election_type) => this.setState({election_type});
+  
+  // Method for Political Affilitation
+  handleAffiliationChange = (event, index, political_affiliation) => this.setState({political_affiliation});
+
+  // Method for Federal Election Type
+  handleFederalElectionTypeChange = (event, index, federal_election_type) => this.setState({federal_election_type});
+
+  // Method for State Election Type
+  handleStateElectionTypeChange = (event, index, state_election_type) => this.setState({state_election_type});
 
 
   // Methods for Stepper Animations
@@ -62,11 +77,11 @@ class CandidateVerticalStepper extends React.Component {
 
   // Method for Finish Button
   handleFinish = () => {
-    let update = this.props.createCandidateDataPush(this.state)
-    update.then( () => {
-      this.props.history.push('/')
-    })
-  }
+    let response = axios.get('/auth/verify').then( ( response ) => {
+      console.log(response)
+      response.data.user_type_id === 2 ? this.props.candidateDataPush(this.state) : this.props.createCandidateDataPush(this.state)
+    } )
+  }  
 
   // Methods for Stepper Buttons
   renderStepActions(step) {
@@ -95,92 +110,17 @@ class CandidateVerticalStepper extends React.Component {
     );
   }
 
-  // Method for Election Type
-  handleElectionTypeChange = (event, index, election_type) => this.setState({election_type});
-
-  // Method for Political Affilitation
-  handleAffiliationChange = (event, index, political_affiliation) => this.setState({political_affiliation});
-
-  // Method for Federal Election Type
-  handleFederalElectionTypeChange = (event, index, federal_election_type) => this.setState({federal_election_type});
-
-  // Method for State Election Type
-  handleStateElectionTypeChange = (event, index, state_election_type) => this.setState({state_election_type});
-
-  // Method for Biography
-  handleBiography ( e, field ) {
+  // Method for Inputs
+  handleInputChange ( e, field ) {
     this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Website
-  handleWebsite ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Facebook
-  handleFacebook ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Twitter
-  handleTwitter ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Instagram
-  handleInstagram ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Phone
-  handlePhone ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-
-  // Method for Campaign Email
-  handleCampaignEmail ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
-    })
-  }
-  
-  // Method for Policy
-  handlePolicy ( e, field ) {
-    this.setState( () => {
-      let newState = this.state
-      newState[field] = e
-      return newState
+      let profile = this.state
+      profile[field] = e
+      return profile
     })
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state, "state.profile")
     const {finished, stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
@@ -256,7 +196,7 @@ class CandidateVerticalStepper extends React.Component {
                 hintText='Add your Profile Here!'
                 multiLine={true}
                 rows={2}
-                onChange={ e => this.handleBiography(e.target.value, 'biography') }
+                onChange={ e => this.handleInputChange(e.target.value, 'biography') }
               />
               <br/>
               {this.renderStepActions(1)}
@@ -271,7 +211,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Website'
                 floatingLabelFixed={false}
                 hintText='Enter Personal Website Link'
-                onChange={ e => this.handleWebsite(e.target.value, 'website') }
+                onChange={ e => this.handleInputChange(e.target.value, 'website') }
               />
               <br/>
               <TextField
@@ -279,7 +219,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Facebook'
                 floatingLabelFixed={false}
                 hintText='Enter Facebook Profile Link'
-                onChange={ e => this.handleFacebook(e.target.value, 'facebook') }
+                onChange={ e => this.handleInputChange(e.target.value, 'facebook') }
               />
               <br/>
               <TextField
@@ -287,7 +227,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Twitter'
                 floatingLabelFixed={false}
                 hintText='Enter Twitter Profile Link'
-                onChange={ e => this.handleTwitter(e.target.value, 'twitter') }
+                onChange={ e => this.handleInputChange(e.target.value, 'twitter') }
               />
               <br/>
               <TextField
@@ -295,7 +235,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Instagram'
                 floatingLabelFixed={false}
                 hintText='Enter Instagram Profile Link'
-                onChange={ e => this.handleInstagram(e.target.value, 'instagram') }
+                onChange={ e => this.handleInputChange(e.target.value, 'instagram') }
               />
               <br/>
               {this.renderStepActions(2)}
@@ -312,7 +252,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Phone'
                 floatingLabelFixed={false}
                 hintText='Enter Phone Number'
-                onChange={ e => this.handlePhone(e.target.value, 'phone') }
+                onChange={ e => this.handleInputChange(e.target.value, 'phone') }
               />
               <br/>
               <TextField
@@ -320,7 +260,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Email'
                 floatingLabelFixed={false}
                 hintText='Enter Campaign Email'
-                onChange={ e => this.handleCampaignEmail(e.target.value, 'campaign_email') }
+                onChange={ e => this.handleInputChange(e.target.value, 'campaign_email') }
               />
               <br/>
               {this.renderStepActions(3)}
@@ -339,7 +279,7 @@ class CandidateVerticalStepper extends React.Component {
                 hintText='Enter Policy Information'
                 multiLine={true}
                 rows={2}
-                onChange={ e => this.handlePolicy(e.target.value, 'policy') }
+                onChange={ e => this.handleInputChange(e.target.value, 'policy') }
               />
               <br/>
               {this.renderStepActions(4)}
@@ -358,4 +298,4 @@ function mapStateToProps(state) {
   return state
 }
 
-export default withRouter(connect(mapStateToProps, {createCandidateDataPush})(CandidateVerticalStepper))
+export default withRouter(connect(mapStateToProps, {createCandidateDataPush, candidateDataPush})(CandidateVerticalStepper))

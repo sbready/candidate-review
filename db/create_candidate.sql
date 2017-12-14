@@ -4,5 +4,5 @@ insert into candidates( candidate_id, biography, website, political_affiliation_
 
 update users
 set user_type_id = 2
-where user_id = $1;
+where id = $1;
 

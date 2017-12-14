@@ -11,6 +11,7 @@ import Settings from './components/Settings/Settings'
 import Addinfocatch from './components/Addinfocatch/Addinfocatch'
 import FederalSenate from './components/FederalSenate/FederalSenate'
 import FederalHouseofRepresentatives from './components/FederalHouseofRepresentatives/FederalHouseofRepresentatives'
+import Candidatepop from './components/Candidates/FederalSenate/candidatepop'
 
 class Router extends Component {
     render(){

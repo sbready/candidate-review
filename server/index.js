@@ -1,3 +1,4 @@
+
 require('dotenv').config()
 const express = require('express')
     , bodyParser = require('body-parser')
@@ -78,6 +79,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
     failureRedirect: 'http://localhost:3000/#/auth'
     })) // set session
 app.get('/auth/verify', function ( req, res ) {
+    console.log(req.user)
     let response = req.user,
         status = 200
     !response && ( response = "LOGIN REQUIRED", status = 403 )
@@ -92,7 +94,7 @@ app.get('/auth/logout', function( req, res ) {
 
 //users endpoints
 app.put('/api/update_user', usersControllers.update_user) // update user table
-app.get('/api/check_new_user', usersControllers.check_new_user)
+app.get('/api/check_new_user', usersControllers.check_new_user) // check to see if new user has been created, reroute to addinfocatch or home
 
 //candidates endpoints
 app.post('/api/create_candidate', candidatesControllers.create_candidate) // create candidate row
