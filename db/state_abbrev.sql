@@ -1,0 +1,1 @@
+select state_abbrev from states

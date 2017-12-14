@@ -27,15 +27,25 @@ CREATE TABLE candidates (
     candidate_id INTEGER references users(id),
     biography TEXT,
     website TEXT,
-    title TEXT,
     political_affiliation_id INTEGER references political_affiliations(id),
     facebook TEXT,
     twitter TEXT,
     instagram TEXT, 
     official_location TEXT, 
     phone TEXT, 
-    policy TEXT
+    policy TEXT,
+    campaign_email TEXT,
+    candidate_type_id INTEGER references election_type(id)
+    federal_election_type_id INTEGER references federal_election_type(id)
+    state_election_type_id INTEGER references state_election_type(id)
 );
+
+CREATE TABLE election_type (
+    id serial primary key
+    election_type TEXT
+)
+INSERT INTO election_type (id, election_type) values
+(default, 'federal'), (default, 'state');
 
 CREATE TABLE political_affiliations (
     id serial primary key, 
@@ -53,7 +63,7 @@ CREATE TABLE cities (
     id serial primary key,
     city_name TEXT,
     county_name TEXT,
-    stateid INTEGER references states(state_abbrev)
+    stateid TEXT references states(state_abbrev)
 );
 
 CREATE TABLE photos (
@@ -61,4 +71,18 @@ CREATE TABLE photos (
     user_id INTEGER references users(id),
     image_url TEXT
 );
+
+CREATE TABLE federal_election_type (
+    id serial primary key,
+    federal_election_type TEXT
+);
+INSERT INTO federal_election_type (id, federal_election_type) values
+(default, 'Senate'), (default, 'House of Representatives');
+
+CREATE TABLE state_election_type (
+    id serial primary key,
+    state_election_type TEXT
+);
+INSERT INTO state_election_type (id, state_election_type) values
+(default, 'Governor'), (default, 'State Senate'), (default, 'State House of Representatives');
 

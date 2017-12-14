@@ -12,6 +12,9 @@
     "express-session": "^1.15.6",
     "massive": "^4.5.0",
     "material-ui": "^0.20.0",
+    "material-ui-autocomplete-google-places": "^2.2.0",
+    "material-ui-places": "^1.1.7",
+    "moment": "^2.19.4",
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.0",
     "react": "^16.2.0",
@@ -30,6 +33,6 @@
     "eject": "react-scripts eject",
     "server": "nodemon --watch server"
   },
-  "proxy": "http://localhost:3005",
+  "proxy": "http://localhost:3005/",
   "main": "server/index.js"
 }

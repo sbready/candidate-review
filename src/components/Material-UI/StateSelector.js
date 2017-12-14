@@ -37,11 +37,11 @@ class StateSelector extends React.Component {
                     onChange={ (e) => this.handleChange(e) }
                     value={this.props.value ? this.props.value : '0'}
                     hintText='Choose a State'
-                    floatingLabelText=" "
+                    floatingLabelText="State"
                 >
                     <MenuItem value={ null } primaryText="Choose a State" disabled={true}/>
                     {this.state.states.map(( e, i ) => {
-                        return <MenuItem primaryText={e.state_name} />
+                        return <MenuItem key={i} primaryText={e.state_name} />
                     })}
                 </SelectField>
                 <br/>

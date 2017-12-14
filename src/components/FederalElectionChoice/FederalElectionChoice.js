@@ -33,7 +33,6 @@ class FederalElectionChoice extends Component {
    } 
 
   handleClick(e) {
-    console.log(e.target.name, e.target.innerText)
     this.props.history.push(`${this.props.location.pathname}/${e.target.name}`)
   }
 

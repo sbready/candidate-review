@@ -44,6 +44,10 @@ class FederalSenate extends Component {
         <MatAppBar/>
         <StateSelector/>
         <h2>Select a Candidate</h2>
+
+        <div>
+          
+        </div>
         <Candidatepop/>
         <Candidatepop/>
         <Candidatepop/>

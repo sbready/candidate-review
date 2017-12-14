@@ -5,11 +5,16 @@ const initialState = {
     name_first: ' ',
     name_last: ' ',
     gender: ' ',
-    email: ' '
+    email: ' ',
+    userUpdate: {},
+    candidateUpdate: {},
+    createCandidate: {}
 }
 
 const GET_USER = 'GET_USER';
-const UPDATE_FIELD = 'UPDATE_FIELD';
+const UPDATE_USER = 'UPDATE_USER';
+const UPDATE_CANDIDATE = 'UPDATE_CANDIDATE';
+const CREATE_CANDIDATE = 'CREATE_CANDIDATE';
 
 export function getUser(){
     const UserInfo = axios.get('/auth/verify')
@@ -20,29 +25,53 @@ export function getUser(){
     }
 }
 
-export function updateField(text, field){
-    return {
-        type: UPDATE_FIELD,
-        field: field,
-        payload: text
+// export function updateField(UserStepperInfo){
+//     return {
+//         type: UPDATE_FIELD,
+//         payload: UserStepperInfo
+//     }
+// }
+
+export function userDataPush(UserStepperInfo){
+    console.log('userducks')
+    let promise = axios.put('/api/update_user', UserStepperInfo)
+    .then( res => res.data )
+    return { 
+        type: UPDATE_USER,
+        payload: promise
+    }
+}
+
+export function createCandidateDataPush(CandidateStepperInfo){
+    console.log('createCandidateducks')
+    let promise = axios.post('/api/create_candidate', CandidateStepperInfo)
+    .then( res => res.data )
+    return { 
+        type: CREATE_CANDIDATE,
+        payload: promise
+    }
+}
+
+export function candidateDataPush(CandidateStepperInfo){
+    console.log('candidateducks')
+    let promise = axios.put('/api/update_candidate', CandidateStepperInfo)
+    .then( res => res.data )
+    return { 
+        type: UPDATE_CANDIDATE,
+        payload: promise
     }
 }
 
 export default function reducer ( state = initialState, action ) {
     switch (action.type) {
         case GET_USER + '_FULFILLED':
-            return Object.assign( {}, state, {userData: action.payload})
-        case UPDATE_FIELD:
-            if ( action.field === 'name_first' ) {
-                console.log(state)
-                return Object.assign( {}, state, {name_first: action.payload} )
-            } else if ( action.field === 'name_last' ) {
-                return Object.assign( {}, state, {name_last: action.payload} )
-            } else if ( action.field === 'gender' ) {
-                return Object.assign( {}, state, {gender: action.payload} ) 
-            } else { //email
-                return Object.assign( {}, state, {email: action.payload} )
-            }
+            return Object.assign( {}, state, {userData: action.payload} )
+        case UPDATE_USER + '_FULFILLED':
+            return Object.assign( {}, state, {userUpdate: action.payload} )
+        case CREATE_CANDIDATE + '_FULFILLED':
+            return Object.assign( {}, state, {createCandidate: action.payload} )
+        case UPDATE_CANDIDATE + '_FULFILLED':
+            return Object.assign( {}, state, {candidateUpdate: action.payload} )
         default: 
             return state;
     }

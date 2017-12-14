@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
 import {
   Step,
   Stepper,
@@ -9,10 +10,11 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MatDatePicker from '../Material-UI/MatDatePicker'
-import SimpleAddressForm from '../Outside APIs/SimpleAddressForm'
+// import SimpleAddressForm from '../Outside APIs/SimpleAddressForm'
 import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
-import { updateField } from './../../ducks/users'
+import { userDataPush } from './../../ducks/users'
+import AddressForm from './AddressForm'
 
 /**
  * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
@@ -32,29 +34,41 @@ class UserVerticalStepper extends React.Component {
       stepIndex: 0,
       defaultValue: '',
       errorText: '',
+      state_abbrev: [],
       name_first: '',
       name_last: '',
       gender: '',
       email: '',
-      birthday: '',
-      address: '',
-      address2: '',
+      birthday: null,
+      streetaddress: '',
+      streetaddress2: '',
       city: '',
       state: '',
       zip: ''
     };
 
-    // this.onChange=this.onChange.bind(this)
-    // this.genderMatch=this.genderMatch.bind(this)
+    this.handleInput=this.handleInput.bind(this)
+    this.handleFinish=this.handleFinish.bind(this)
+    this.handleDateChange=this.handleDateChange.bind(this)
+    this.handleStateChange=this.handleStateChange.bind(this)
   }
 
   componentDidMount() {
     this.setState({
-      name_first: this.props.user.name_first
+      name_first: this.props.user.name_first,
+      name_last: this.props.user.name_last,
+      email: this.props.user.email,
+      gender: this.props.user.gender
+    }),
+
+    axios.get('/api/state_abbrev').then(( state_abbrev ) => {
+      this.setState({
+        state_abbrev: state_abbrev.data
+      })
     })
   }
   
-  
+  // Methods for Stepper Buttons
   handleNext = () => {
     const {stepIndex} = this.state;
     this.setState({
@@ -69,15 +83,26 @@ class UserVerticalStepper extends React.Component {
       this.setState({stepIndex: stepIndex - 1});
     }
   };
-  
-  // genderMatch = () => {
-    //   if( gender !== 'male' || gender !== 'female') {
-      //     this.setState({
-        //       errorText: 'This field is required'
-        //     })
-        //   }
-        // };
+
+  // Method for MatDatePicker
+  handleDateChange( e, date ) {
+    this.setState({
+      birthday: date, 
+    })
+    console.log(this.state.birthday)
+  }
+
+  // Method for Address Field: State
+  handleStateChange(e) {
+    let abbrev_index = this.state.state_abbrev.map( el => el.state_abbrev).indexOf(e.target.innerText)
+    console.log(abbrev_index)
+    this.setState({
+        value: abbrev_index,
+        state: this.state.state_abbrev[abbrev_index].state_abbrev
+    })
+  } 
         
+
   onChange( e ) {
     if (this.refs.name_first !== '') {
       this.setState({
@@ -90,10 +115,16 @@ class UserVerticalStepper extends React.Component {
     }
   };
 
+  // Method for Finish Button
   handleFinish = () => {
-    this.props.history.push('/')
+    console.log(this.state)
+    let update = this.props.userDataPush(this.state)
+    update.then( () => {
+      this.props.history.push('/')
+    })
   }
   
+  // Method for Stepper Animations
   renderStepActions(step) {
     const {stepIndex} = this.state;    
           
@@ -119,8 +150,18 @@ class UserVerticalStepper extends React.Component {
       </div>
     );
   }
+
+  // Method for TextFields
+  handleInput( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
         
     render() {
+      console.log(this.state)
     const {finished, stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
@@ -137,8 +178,7 @@ class UserVerticalStepper extends React.Component {
                 floatingLabelText='First Name'
                 floatingLabelFixed={false}
                 errorText={!this.props.name_first && 'This field is Required'}
-                onChange={ e => this.props.updateField(e.target.value, 'name_first')
-                }
+                onChange={ e => this.handleInput(e.target.value, 'name_first') }
               />
               <br/>
               <TextField
@@ -146,8 +186,7 @@ class UserVerticalStepper extends React.Component {
                 floatingLabelText='Last Name'
                 floatingLabelFixed={false}
                 errorText={!this.props.name_last && 'This field is Required'}
-                onChange={ e => this.props.updateField(e.target.value, 'name_last') 
-                }
+                onChange={ e => this.handleInput(e.target.value, 'name_last') }
               />
               <br/>
               <TextField
@@ -155,8 +194,7 @@ class UserVerticalStepper extends React.Component {
                 floatingLabelText='Gender'
                 floatingLabelFixed={false}
                 errorText={!this.props.gender && 'This field is Required'}
-                onChange={ e => this.props.updateField(e.target.value, 'gender') 
-                }
+                onChange={ e => this.handleInput(e.target.value, 'gender') }
                 hintText='Male or Female'
               />
               <br/>
@@ -165,8 +203,7 @@ class UserVerticalStepper extends React.Component {
                 floatingLabelText='Email'
                 floatingLabelFixed={false}
                 errorText={!this.props.email && 'This field is Required'}
-                onChange={ e => this.props.updateField(e.target.value, 'email') 
-                }
+                onChange={ e => this.handleInput(e.target.value, 'email') }
               />
               <br/>
               {this.renderStepActions(0)}
@@ -174,11 +211,12 @@ class UserVerticalStepper extends React.Component {
           </Step>
           <Step> 
             <StepLabel>Add Your Birthday</StepLabel>
-            <StepContent
-            >
+            <StepContent>
               <p>Please select your birthday.  We ask for this information so we can help make your experience on our site more personalized.  Some aspects of our site are disabled for users under the age of 18. </p>
               <br/>
-              <MatDatePicker/>
+              <MatDatePicker handleDateChange={this.handleDateChange} 
+                             birthday={this.state.birthday}
+              />
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
@@ -189,7 +227,12 @@ class UserVerticalStepper extends React.Component {
                 Please add your address to your account.  We ask for this information so we can help make your experience on our site more personalized.  Some features on this site are interactive based on your location. 
               </p>
               <br/>
-              <SimpleAddressForm/>
+              <AddressForm handleInput={this.handleInput}
+                           handleStateChange={this.handleStateChange}
+                           state={this.state.state}
+                           state_abbrev={this.state.state_abbrev}
+                           value={this.state.value}
+              />
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
@@ -206,4 +249,4 @@ function mapStateToProps(state) {
   return state
 }
 
-export default withRouter(connect(mapStateToProps, {updateField})(UserVerticalStepper))
+export default withRouter(connect(mapStateToProps, {userDataPush})(UserVerticalStepper))

@@ -74,7 +74,7 @@ passport.use(new Auth0Strategy({
 //authentication endpoints - complete
 app.get('/auth', passport.authenticate('auth0')) // authenticate auth0
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/addinfocatch',
+    successRedirect: 'http://localhost:3005/api/check_new_user',
     failureRedirect: 'http://localhost:3000/#/auth'
     })) // set session
 app.get('/auth/verify', function ( req, res ) {
@@ -92,6 +92,7 @@ app.get('/auth/logout', function( req, res ) {
 
 //users endpoints
 app.put('/api/update_user', usersControllers.update_user) // update user table
+app.get('/api/check_new_user', usersControllers.check_new_user)
 
 //candidates endpoints
 app.post('/api/create_candidate', candidatesControllers.create_candidate) // create candidate row
@@ -100,6 +101,7 @@ app.put('/api/update_candidate', candidatesControllers.update_candidate) // upda
 
 //states endpoints
 app.get('/api/state_names', statesControllers.state_names)
+app.get('/api/state_abbrev', statesControllers.state_abbrev)
 
 
 

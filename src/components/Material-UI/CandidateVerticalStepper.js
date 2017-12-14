@@ -1,5 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { createCandidateDataPush } from './../../ducks/users'
 import {
   Step,
   Stepper,
@@ -11,6 +13,7 @@ import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
+// import AddressAutocomplete from './../Outside APIs/AddressAutocomplete'
 
 
 /**
@@ -21,15 +24,27 @@ import TextField from 'material-ui/TextField'
  *
  * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
  */
+
 class CandidateVerticalStepper extends React.Component {
 
   state = {
     finished: false,
     stepIndex: 0,
-    value: ' ',
-    value2: ' '
+    election_type: ' ',
+    political_affiliation: ' ',
+    website: ' ',
+    facebook: ' ', 
+    twitter: ' ',
+    instagram: ' ',
+    phone: ' ',
+    campaign_email: ' ',
+    official_location: ' ',
+    federal_election_type: ' ',
+    state_election_type: ' '
   };
 
+
+  // Methods for Stepper Animations
   handleNext = () => {
     const {stepIndex} = this.state;
     this.setState({
@@ -38,7 +53,6 @@ class CandidateVerticalStepper extends React.Component {
     });
   };
 
-  
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
@@ -46,10 +60,15 @@ class CandidateVerticalStepper extends React.Component {
     }
   };
 
+  // Method for Finish Button
   handleFinish = () => {
-    this.props.history.push('/')
+    let update = this.props.createCandidateDataPush(this.state)
+    update.then( () => {
+      this.props.history.push('/')
+    })
   }
 
+  // Methods for Stepper Buttons
   renderStepActions(step) {
     const {stepIndex} = this.state;
     
@@ -76,10 +95,92 @@ class CandidateVerticalStepper extends React.Component {
     );
   }
 
-  handleSelectChange = (event, index, value) => this.setState({value});
-  handleSelectChange2 = (event, index, value2) => this.setState({value2});
+  // Method for Election Type
+  handleElectionTypeChange = (event, index, election_type) => this.setState({election_type});
+
+  // Method for Political Affilitation
+  handleAffiliationChange = (event, index, political_affiliation) => this.setState({political_affiliation});
+
+  // Method for Federal Election Type
+  handleFederalElectionTypeChange = (event, index, federal_election_type) => this.setState({federal_election_type});
+
+  // Method for State Election Type
+  handleStateElectionTypeChange = (event, index, state_election_type) => this.setState({state_election_type});
+
+  // Method for Biography
+  handleBiography ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Website
+  handleWebsite ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Facebook
+  handleFacebook ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Twitter
+  handleTwitter ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Instagram
+  handleInstagram ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Phone
+  handlePhone ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
+  // Method for Campaign Email
+  handleCampaignEmail ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
   
+  // Method for Policy
+  handlePolicy ( e, field ) {
+    this.setState( () => {
+      let newState = this.state
+      newState[field] = e
+      return newState
+    })
+  }
+
   render() {
+    console.log(this.state)
     const {finished, stepIndex} = this.state;
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
@@ -93,20 +194,20 @@ class CandidateVerticalStepper extends React.Component {
               <SelectField
                 floatingLabelText="Election Type:"
                 floatingLabelFixed={false}
-                floatingLabelStyle={{color: 'red'}}
-                value={this.state.value}
-                onChange={this.handleSelectChange}
+                // floatingLabelStyle={{color: 'red'}}
+                value={this.state.election_type}
+                onChange={this.handleElectionTypeChange}
               >
-                <MenuItem value={1} primaryText="State Election" />
-                <MenuItem value={2} primaryText="Federal Election" />
+                <MenuItem value={1} primaryText="Federal Election" />
+                <MenuItem value={2} primaryText="State Election" />
               </SelectField>
               <br/>
               <SelectField
                 floatingLabelText="Political Affiliation:"
                 floatingLabelFixed={false}
-                floatingLabelStyle={{color: 'red'}}
-                value={this.state.value2}
-                onChange={this.handleSelectChange2}
+                // floatingLabelStyle={{color: 'red'}}
+                value={this.state.political_affiliation}
+                onChange={this.handleAffiliationChange}
                >
                 <MenuItem value={1} primaryText="Republican" />
                 <MenuItem value={2} primaryText="Democrat" />
@@ -114,6 +215,29 @@ class CandidateVerticalStepper extends React.Component {
                 <MenuItem value={4} primaryText="Constitution" />
                 <MenuItem value={5} primaryText="Green" />
                 <MenuItem value={6} primaryText="Independent" />
+              </SelectField>
+              <br/>
+              <SelectField
+                floatingLabelText="Federal Election Type:"
+                floatingLabelFixed={false}
+                // floatingLabelStyle={{color: 'red'}}
+                value={this.state.federal_election_type}
+                onChange={this.handleFederalElectionTypeChange}
+              >
+                <MenuItem value={1} primaryText="Senate" />
+                <MenuItem value={2} primaryText="House of Representatives" />
+              </SelectField>
+              <br/>
+              <SelectField
+                floatingLabelText="State Election Type:"
+                floatingLabelFixed={false}
+                // floatingLabelStyle={{color: 'red'}}
+                value={this.state.state_election_type}
+                onChange={this.handleStateElectionTypeChange}
+              >
+                <MenuItem value={1} primaryText="Governor" />
+                <MenuItem value={2} primaryText="State Senate" />
+                <MenuItem value={3} primaryText="State House of Representatives" />
               </SelectField>
               <br/>
               {this.renderStepActions(0)}
@@ -132,6 +256,7 @@ class CandidateVerticalStepper extends React.Component {
                 hintText='Add your Profile Here!'
                 multiLine={true}
                 rows={2}
+                onChange={ e => this.handleBiography(e.target.value, 'biography') }
               />
               <br/>
               {this.renderStepActions(1)}
@@ -146,6 +271,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Website'
                 floatingLabelFixed={false}
                 hintText='Enter Personal Website Link'
+                onChange={ e => this.handleWebsite(e.target.value, 'website') }
               />
               <br/>
               <TextField
@@ -153,6 +279,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Facebook'
                 floatingLabelFixed={false}
                 hintText='Enter Facebook Profile Link'
+                onChange={ e => this.handleFacebook(e.target.value, 'facebook') }
               />
               <br/>
               <TextField
@@ -160,6 +287,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Twitter'
                 floatingLabelFixed={false}
                 hintText='Enter Twitter Profile Link'
+                onChange={ e => this.handleTwitter(e.target.value, 'twitter') }
               />
               <br/>
               <TextField
@@ -167,6 +295,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Instagram'
                 floatingLabelFixed={false}
                 hintText='Enter Instagram Profile Link'
+                onChange={ e => this.handleInstagram(e.target.value, 'instagram') }
               />
               <br/>
               {this.renderStepActions(2)}
@@ -183,6 +312,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Phone'
                 floatingLabelFixed={false}
                 hintText='Enter Phone Number'
+                onChange={ e => this.handlePhone(e.target.value, 'phone') }
               />
               <br/>
               <TextField
@@ -190,6 +320,7 @@ class CandidateVerticalStepper extends React.Component {
                 floatingLabelText='Email'
                 floatingLabelFixed={false}
                 hintText='Enter Campaign Email'
+                onChange={ e => this.handleCampaignEmail(e.target.value, 'campaign_email') }
               />
               <br/>
               {this.renderStepActions(3)}
@@ -208,6 +339,7 @@ class CandidateVerticalStepper extends React.Component {
                 hintText='Enter Policy Information'
                 multiLine={true}
                 rows={2}
+                onChange={ e => this.handlePolicy(e.target.value, 'policy') }
               />
               <br/>
               {this.renderStepActions(4)}
@@ -222,6 +354,8 @@ class CandidateVerticalStepper extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return state
+}
 
-
-export default withRouter(CandidateVerticalStepper)
+export default withRouter(connect(mapStateToProps, {createCandidateDataPush})(CandidateVerticalStepper))

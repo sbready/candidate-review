@@ -7,10 +7,18 @@ class SimpleAddressForm extends React.Component {
     super(props)
 
     this.state = { 
-      address: '' 
+      address: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: ''
     }
 
     this.onChange = (address) => this.setState({ address })
+  }
+
+  handleFormSplit = ( e ) => {
+    
   }
 
   handleFormSubmit = ( event ) => {
@@ -23,6 +31,7 @@ class SimpleAddressForm extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     const AutocompleteItem = ({ suggestion }) => (<div><i className="fa fa-map-marker"/>{suggestion}</div>)
     
     const inputProps = {
@@ -34,13 +43,13 @@ class SimpleAddressForm extends React.Component {
     }
 
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <PlacesAutocomplete 
-          inputProps={inputProps} 
-          autocompleteItem={AutocompleteItem}
-        />
-        <button type="submit">Submit</button>
-      </form>
+        <form onSubmit={this.handleFormSubmit}>
+          <PlacesAutocomplete 
+            inputProps={inputProps} 
+            autocompleteItem={AutocompleteItem}
+          />
+          <button type="submit">Submit</button>
+        </form>
     )
   }
 }

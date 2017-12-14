@@ -1,39 +1,41 @@
 import React from 'react'
 
 import DatePicker from 'material-ui/DatePicker'
+let moment = require('moment')
 
-// Disable weekends
-// function disableWeekends(date) {
-//     return date.getDay() === 0 || date.getDay() === 6;
-// }
-
-// // Disable dates found within an array
-// function disableDate(date){
-//     var disabledArray = [1,5,7,10,20,23,25] // This would be a list of dates you're unavailable
-//     //You could also disable a certain range. This would be done by adding it to the disabledArray if it's day, month, and year are between that range.
-//     return disabledArray.includes(date.getDate()) ? true : false
-// }
 
 class MatDatePicker extends React.Component {
+
+    // constructor(props) {
+    //     super(props);
+    
+    //     this.state = {
+    //       date: null,
+    //     };
+    //   }
+    
+    //   handleChange = (e, date) => {
+    //       console.log(date)
+    //     this.setState({
+    //       date: date,
+    //     });
+    //   };
+
+
     render(){
+        let formatDate = date => moment( date ).format("MM DD YYYY")
         return (
             <div>
-                {/* <DatePicker 
-                    autoOk={true} // Wether or not the submit button has to be pressed
-                    hintText="Auto Select" // The placeholder text
+                <DatePicker 
+                    openToYearSelection={true} 
+                    value={this.props.birthday}
+                    onChange={ ( e, date ) => this.props.handleDateChange( e, date ) }
+                    formatDate={ formatDate }
                 />
-                <DatePicker 
-                    hintText="Disable Weekends" 
-                    shouldDisableDate={disableWeekends}  // Determines which dates should be disabled
-                    mode='portrait' // Display calendar portrait or landscape
-                /> */}
-                <DatePicker 
-                    openToYearSelection={true} // Should open to year first?
-                    />
-                    </div>
-                )
-            }
+            </div>
+            )
         }
+    }
         
-        export default MatDatePicker
-        // hintText="Disable Date" shouldDisableDate={disableDate} 
+export default MatDatePicker
+        
