@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class Profile extends Component {
 
@@ -36,4 +37,9 @@ class Profile extends Component {
 }
 
 
-export default withRouter(Profile)
+
+function mapStateToProps(state) {
+    return state
+}
+  
+export default withRouter(connect(mapStateToProps, {})(Profile))

@@ -55,23 +55,29 @@ module.exports = {
             } = req.body
         
         const db = req.app.get('db')
-            console.log(req.body, "HERE IS REQBODY")
         db.find_user_by_session( [req.user.id] ).then( ( obj ) => {
             user = obj[0]
             let updatedInfo = req.body //req.body is this.state coming from axios call on front end axios.put(url, body)
             , updatedCandidate = Object.assign( {}, updatedInfo )
 
-        console.log(...Object.values(updatedCandidate), "HERE IS THE CONOSLE LOG")
-
         db.update_candidate( [req.user.id, ...Object.values(updatedCandidate)] ).then( obj => {
-            console.log(obj)
             res.status( status ).send( user )
         }).catch( err => console.log( err ) )
         }).catch( err => console.log( err ) )
+    },
+
+
+    find_candidate_pop ( req, res ) {
+        console.log('made it to find candidate pop controller')
+        let user,
+            status = 200
+
+        const db = req.app.get('db')
+       
+        db.find_candidate_pop( [1, 1, 44] ).then( ( popArray ) => {
+            res.status( status ).send( popArray )
+        }).catch( err => console.log( err ) )
     }
-
-
-
 
 
 

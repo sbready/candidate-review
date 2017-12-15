@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import MatAppBar from './../Material-UI/MatAppBar'
 import StateSelector from './../Material-UI/StateSelector'
-import Candidatepop from './../Candidates/FederalSenate/candidatepop'
+import Candidatepop from './../Candidates/Candidatepop'
 
 class FederalSenate extends Component {
 
@@ -14,7 +14,8 @@ class FederalSenate extends Component {
     this.state = {
       states: [],
       state: props.match.params,
-      value: ''
+      value: '',
+      popArray: []
     }
 
     this.handleChange=this.handleChange.bind(this)
@@ -25,6 +26,12 @@ class FederalSenate extends Component {
       this.setState({
         states: states.data
       })
+    }), 
+
+    axios.get('/api/find_candidate_pop').then( ( popArray ) => {
+      this.setState({
+        popArray: popArray.data
+      })
     })
   }
 
@@ -33,7 +40,8 @@ class FederalSenate extends Component {
   }
 
   handleClick(e) {
-    this.props.history.push(`/state/${this.state.state}/${e.target.name}`)    
+    console.log("PATHNAME", e.target)
+    this.props.history.push(`${this.props.location.pathname}/${e.target.name}`)    
   }
 
   render() {
@@ -46,11 +54,12 @@ class FederalSenate extends Component {
         <h2>Select a Candidate</h2>
 
         <div>
-          
+          {this.state.popArray.map( ( e, i ) => {
+            return  <Candidatepop key={i} handleClick={this.handleClick}/>
+          })}
         </div>
-        <Candidatepop/>
-        <Candidatepop/>
-        <Candidatepop/>
+
+
       </div>
     );
   }

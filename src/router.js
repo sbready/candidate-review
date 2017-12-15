@@ -11,7 +11,7 @@ import Settings from './components/Settings/Settings'
 import Addinfocatch from './components/Addinfocatch/Addinfocatch'
 import FederalSenate from './components/FederalSenate/FederalSenate'
 import FederalHouseofRepresentatives from './components/FederalHouseofRepresentatives/FederalHouseofRepresentatives'
-import Candidatepop from './components/Candidates/FederalSenate/candidatepop'
+import Profile from './components/Profile/profile'
 
 class Router extends Component {
     render(){
@@ -23,6 +23,7 @@ class Router extends Component {
                 <Route path='/registercandidate' component={ RegisterCandidate } /> 
                 <Route path='/myballot' component={ MyBallot } /> 
                 <Route path='/settings' component={ Settings } /> 
+                <Route path='/state/:state/Federal_Election/Senate/:Profile' component={ Profile } />
                 <Route path='/state/:state/Federal_Election/Senate' component={ FederalSenate } />
                 <Route path='/state/:state/Federal_Election/House' component={ FederalHouseofRepresentatives } />
                 <Route path='/state/:state/Federal_Election' component={ FederalElectionChoice } />

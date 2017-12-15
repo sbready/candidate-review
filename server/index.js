@@ -99,6 +99,7 @@ app.get('/api/check_new_user', usersControllers.check_new_user) // check to see 
 //candidates endpoints
 app.post('/api/create_candidate', candidatesControllers.create_candidate) // create candidate row
 app.put('/api/update_candidate', candidatesControllers.update_candidate) // update candidate table
+app.get('/api/find_candidate_pop', candidatesControllers.find_candidate_pop)
 // app.get('/candidates/candidate_profile', candidatesControllers.candidate_profile) //gets candidate data to populate candidate profile page
 
 //states endpoints
