@@ -73,10 +73,27 @@ module.exports = {
             status = 200
 
         const db = req.app.get('db')
+
+        db.find_state_id2( [req.params.state] ).then( ( state ) => {
+
+            db.find_candidate_pop( [req.params.election_type, req.params.race_type, state[0].id] ).then( ( popArray ) => {
+    
+                res.status( status ).send( popArray )
+            }).catch( err => console.log( err ) )
+        })
        
-        db.find_candidate_pop( [1, 1, 44] ).then( ( popArray ) => {
-            res.status( status ).send( popArray )
-        }).catch( err => console.log( err ) )
+    },
+
+
+    fetch_all_data ( req, res ) {
+        console.log('made it to the fetch all controller')
+        let status = 200
+
+        const db = req.app.get('db')
+
+        db.user_candidate_join( [req.params.id] ).then( ( userData ) => {
+            res.status( status ).send( userData )
+        })
     }
 
 

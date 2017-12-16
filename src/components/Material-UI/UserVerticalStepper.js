@@ -15,6 +15,7 @@ import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
 import { userDataPush } from './../../ducks/users'
 import AddressForm from './AddressForm'
+import FileUpload from './../FileUpload'
 
 /**
  * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
@@ -59,7 +60,7 @@ class UserVerticalStepper extends React.Component {
       name_last: this.props.user.name_last,
       email: this.props.user.email,
       gender: this.props.user.gender
-    }),
+    })
 
     axios.get('/api/state_abbrev').then(( state_abbrev ) => {
       this.setState({
@@ -73,7 +74,7 @@ class UserVerticalStepper extends React.Component {
     const {stepIndex} = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      finished: stepIndex >= 3,
     });
   };
   
@@ -117,8 +118,8 @@ class UserVerticalStepper extends React.Component {
 
   // Method for Finish Button
   handleFinish = () => {
-    console.log(this.state)
-    let update = this.props.userDataPush(this.state)
+    console.log(this.props.photoUpload)
+    let update = this.props.userDataPush(this.state, this.props.photoUpload)
     update.then( () => {
       this.props.history.push('/')
     })
@@ -131,7 +132,7 @@ class UserVerticalStepper extends React.Component {
     return (
       <div style={{margin: '12px 0'}}>
       <RaisedButton
-      label={stepIndex === 2 ? 'Finish' : 'Next'}
+      label={stepIndex === 3 ? 'Finish' : 'Next'}
       disableTouchRipple={true}
       disableFocusRipple={true}
       primary={true}
@@ -236,6 +237,17 @@ class UserVerticalStepper extends React.Component {
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
+          <Step> 
+          <StepLabel>Add your Photos</StepLabel>
+          <StepContent>
+            <p>
+              Please add your photos 
+            </p>
+            <br/>
+            <FileUpload/>
+            {this.renderStepActions(3)}
+          </StepContent>
+        </Step>
         </Stepper>}
         {finished && (
           this.handleFinish()

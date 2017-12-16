@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { photoUpload } from './../ducks/users'
 
 function sendToback(photo){
     console.log(photo)
     return axios.post('/api/photoUpload', photo)
 }
 
-export default class FileUpload extends Component {
+class FileUpload extends Component {
     constructor(){
         super()
 
@@ -38,6 +40,7 @@ export default class FileUpload extends Component {
         event.preventDefault()
 
         sendToback(this.state).then(response => {
+            this.props.photoUpload( response )
             console.log(response.data)
         })
     }
@@ -57,3 +60,9 @@ export default class FileUpload extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return state
+}
+  
+  export default connect(mapStateToProps, {photoUpload})(FileUpload)

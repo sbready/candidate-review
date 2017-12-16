@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { fetchAllData } from './../../ducks/users'
 
 class Profile extends Component {
 
@@ -17,18 +18,18 @@ class Profile extends Component {
             <div>
                 <div className='Infobox'>
                     <image></image>
-                    <h2>{this.props.user.name_first}{this.props.user.name_last}</h2>
-                    <h3>{this.props.user.party_affiliation}</h3>
-                    <h4>{this.props.user.website}</h4>
+                    <h2>name'</h2>
+                    <h3>party affiliation</h3>
+                    <h4>website</h4>
                 </div>
                 <div className='biography'>
-                    <h4>{this.props.user.biography}</h4>
+                    <h4>bio</h4>
                 </div>
                 <div className='policy'>
-                    <h4>{this.props.user.policy}</h4>
+                    <h4>policy</h4>
                 </div>
                 <div className='photos'>
-                    <image></image>
+                    <img src="" alt="Avatar"/>
                 </div>
             </div>
         )
@@ -42,4 +43,4 @@ function mapStateToProps(state) {
     return state
 }
   
-export default withRouter(connect(mapStateToProps, {})(Profile))
+export default withRouter(connect(mapStateToProps, { fetchAllData })(Profile))

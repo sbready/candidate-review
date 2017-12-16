@@ -1,6 +1,7 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux'
+import { fetchAllData } from './../../ducks/users'
+import axios from 'axios'
 
 class Candidatepop extends React.Component {
 
@@ -8,23 +9,29 @@ class Candidatepop extends React.Component {
         super(props);
 
         this.state = {
-
+            userInfo: {}
         }
 
-        // this.handleClick=this.handleClick.bind(this)
     }
 
-    handleClick() {
-        // this.props.history.push(`/state/${this.state.state}/${e.target.name}`) 
+    componentDidMount(){
+
+        axios.get(`/api/fetch_all_data/${this.props.candidate_id}`).then(( userInfo ) => {
+            this.setState({
+              userInfo: userInfo.data[0]
+            })
+          }) 
+
     }
 
     render() {
+        this.state.userInfo
         return (
-            <button onClick={ e => this.props.handleClick( e )} name='Profile'>
+            <button onClick={ e => this.props.handleClick( this.props.candidate_id )} name={this.props.candidate_id}>
                <div className="card">
                     <img src="" alt="Avatar" />
                     <div className="container">
-                        <h4><b>{'e.name_first, e.name_last'}</b></h4> 
+                        <h4><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h4> 
                         <p>{'e.partyaffiliation'}</p> 
                     </div>
                 </div>
@@ -37,6 +44,6 @@ function mapStateToProps(state) {
     return state
 }
   
-export default connect(mapStateToProps, {})(Candidatepop)
+export default connect(mapStateToProps, {fetchAllData})(Candidatepop)
 
 

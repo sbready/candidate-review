@@ -19,6 +19,7 @@ class FederalSenate extends Component {
     }
 
     this.handleChange=this.handleChange.bind(this)
+    this.handleClick=this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -26,9 +27,9 @@ class FederalSenate extends Component {
       this.setState({
         states: states.data
       })
-    }), 
+    }) 
 
-    axios.get('/api/find_candidate_pop').then( ( popArray ) => {
+    axios.get(`/api/find_candidate_pop/1/1/${this.props.match.params.state}`).then( ( popArray ) => {
       this.setState({
         popArray: popArray.data
       })
@@ -40,8 +41,7 @@ class FederalSenate extends Component {
   }
 
   handleClick(e) {
-    console.log("PATHNAME", e.target)
-    this.props.history.push(`${this.props.location.pathname}/${e.target.name}`)    
+    this.props.history.push(`${this.props.location.pathname}/${e}`)    
   }
 
   render() {
@@ -55,7 +55,7 @@ class FederalSenate extends Component {
 
         <div>
           {this.state.popArray.map( ( e, i ) => {
-            return  <Candidatepop key={i} handleClick={this.handleClick}/>
+            return  <Candidatepop candidate_id={e.id} key={i} handleClick={this.handleClick}/>
           })}
         </div>
 

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import TextField from 'material-ui/TextField'
-import { handleInput } from './UserVerticalStepper'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import axios from 'axios'
 
 class AddressForm extends Component {
 

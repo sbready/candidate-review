@@ -77,8 +77,7 @@ class CandidateVerticalStepper extends React.Component {
 
   // Method for Finish Button
   handleFinish = () => {
-    let response = axios.get('/auth/verify').then( ( response ) => {
-      console.log(response)
+    axios.get('/auth/verify').then( ( response ) => {
       response.data.user_type_id === 2 ? this.props.candidateDataPush(this.state) : this.props.createCandidateDataPush(this.state)
     } )
   }  
