@@ -32,7 +32,7 @@ class Candidatepop extends React.Component {
                     <img src="" alt="Avatar" />
                     <div className="container">
                         <h4><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h4> 
-                        <p>{'e.partyaffiliation'}</p> 
+                        <p>{this.state.userInfo.political_affiliation_id}</p> 
                     </div>
                 </div>
             </button>

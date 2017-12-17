@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-
+import './StateLandingChoice.css'
 import MatAppBar from './../Material-UI/MatAppBar'
 import StateSelector from './../Material-UI/StateSelector'
 
@@ -39,14 +39,23 @@ class StateLandingChoice extends Component {
   render() {
     return (
       <div className="StateLandingChoice">
-      {this.props.match.params.state}
-      <br/>
+      
         <MatAppBar/>
-        <StateSelector/>
-       
-        <h2>Select the type of election you want information about</h2>
-        <button onClick={ e => this.handleClick( e )} name='State_Election'>State Elections</button>
-        <button onClick={ e => this.handleClick( e )} name='Federal_Election'>Federal Elections</button>
+        <div className='state-landing-content'>
+          <div className='StateLabel'>
+            <h1>{this.props.match.params.state}</h1>
+          </div>
+          <div className='state-landing-selector'>
+            <StateSelector/>
+          </div>
+          <div className='state-landing-prompt'>
+            <h2>Select the type of election you want information about</h2>
+          </div>
+          <div className='state-landing-buttons'>
+            <button onClick={ e => this.handleClick( e )} name='State_Election'>State Elections</button>
+            <button onClick={ e => this.handleClick( e )} name='Federal_Election'>Federal Elections</button>
+          </div>
+        </div>
       </div>
     );
   }

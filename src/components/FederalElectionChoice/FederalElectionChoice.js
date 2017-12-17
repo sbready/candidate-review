@@ -39,9 +39,9 @@ class FederalElectionChoice extends Component {
   render() {
     return (
       <div className="StateLandingChoice">
-      {this.props.match.params.state}
-      <br/>
         <MatAppBar/>
+        {this.props.match.params.state}
+        
         <StateSelector/>
         
         <h2>Select the type of federal election you want information about</h2>

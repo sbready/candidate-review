@@ -47,9 +47,8 @@ class FederalSenate extends Component {
   render() {
     return (
       <div className="StateLandingChoice">
-      {this.props.match.params.state}
-      <br/>
         <MatAppBar/>
+        {this.props.match.params.state}
         <StateSelector/>
         <h2>Select a Candidate</h2>
 

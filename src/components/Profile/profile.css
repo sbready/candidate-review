@@ -1,0 +1,92 @@
+.profile-template {
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: space-around;
+}
+
+.profile-styled-contents {
+    padding: 2px 16px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: space-around;
+}
+
+.profile-avatar {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+    align-content: center;
+    margin-top: 20px;
+    margin-bottom: -85px;
+}
+
+.profile-header {
+
+}
+
+.profile-candidate-info {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-top: 30px;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: center;
+    align-content: center;
+    padding-top: 65px;
+    padding-bottom: 15px;
+}
+
+.profile-website {
+    margin-top: 5px;
+}
+
+.profile-social-icons {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+    align-content: center;
+    margin-top: 5px;
+}
+
+.profile-icon {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.profile-candidate-info:hover{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.profile-bio {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.profile-bio:hover{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.profile-policy {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.profile-policy:hover{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
