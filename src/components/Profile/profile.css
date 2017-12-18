@@ -7,6 +7,14 @@
 	align-content: space-around;
 }
 
+.profile-background-image {
+    background-image: url('../../assets/profile-background.jpg');
+    background-size: cover;
+    height: 200px;
+    width: 100vw;
+    margin-bottom: -155px;
+}
+
 .profile-styled-contents {
     padding: 2px 16px;
     display: flex;
@@ -14,10 +22,13 @@
 	flex-wrap: nowrap;
 	justify-content: space-around;
 	align-items: stretch;
-	align-content: space-around;
+    align-content: space-around;
+    z-index: 1;
 }
 
+
 .profile-avatar {
+    z-index: 2;
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -33,6 +44,7 @@
 }
 
 .profile-candidate-info {
+    background: white;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     margin-top: 30px;

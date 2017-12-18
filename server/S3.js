@@ -14,7 +14,7 @@ AWS.config.update({
 const S3 = new AWS.S3()
 
 function uploadPhoto(req, res) {
-    console.log('photo in back', req.body.filename, process.env.AWS_ACCESS)
+    // console.log('photo in back', req.body.filename, process.env.AWS_ACCESS)
     let photo = req.body,
         buf = new Buffer(photo.file.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
         params = {
@@ -25,7 +25,7 @@ function uploadPhoto(req, res) {
             ACL: 'public-read' // Allows access to url from anywhere on the web
         }
 
-    console.log(buf)
+    // console.log(buf)
 
     S3.upload(params, (err, data) => {
         console.log(err, data)

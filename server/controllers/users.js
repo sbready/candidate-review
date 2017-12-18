@@ -6,6 +6,7 @@ module.exports = {
             status = 200
 
         const db = req.app.get('db')
+        console.log('HERE IS REQUSER', req.user)
         db.find_user_by_session( [req.user.id] ).then( ( obj ) => {
             // console.log('REQUSERID CHECK', req.user)
             user = obj[0]
@@ -23,7 +24,7 @@ module.exports = {
                     
                     console.log(req.body, "HERE IS THE DATA")
                     // console.log(req.body, 'HERE IS THE BODY')
-                    // db.upload_photo( [req.body.data.Location, req.user.id] ).then( () => {
+                    db.upload_photo( [req.body.data.Location, req.user.id] ).then( () => {
 
                         // console.log(updatedUser)
                         db.update_user( [...Object.values(updatedUser)] ).then( obj => {
@@ -32,7 +33,7 @@ module.exports = {
                             !user.id && (status = 404)
                             res.status( status ).send( user )
                         }).catch( err => console.log(err) )
-                    // })
+                    })
                 })
             }) 
         }).catch( err => console.log(err) )   

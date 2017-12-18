@@ -36,7 +36,7 @@ class Candidatepop extends React.Component {
                 </div>
                 <div className="candidatepop-container">
                     <h3><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h3> 
-                    <p>{this.state.userInfo.political_affiliation_id}</p> 
+                    <p>{this.state.userInfo.political_affiliation}</p> 
                 </div>
             </div>
         );

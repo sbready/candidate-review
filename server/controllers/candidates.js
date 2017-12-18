@@ -84,18 +84,37 @@ module.exports = {
        
     },
 
+    // fetch_all_data ( req, res ) {
+    //     console.log('made it to the fetch all controller')
+    //     let status = 200
+
+    //     const db = req.app.get('db')
+
+    //     db.user_candidate_join( [req.params.id] ).then( ( userData ) => {
+    //         res.status( status ).send( userData )
+    //     })
+    // }
 
     fetch_all_data ( req, res ) {
         console.log('made it to the fetch all controller')
         let status = 200
 
         const db = req.app.get('db')
-
-        db.user_candidate_join( [req.params.id] ).then( ( userData ) => {
-            res.status( status ).send( userData )
+        let promises = [
+            db.user_candidate_join( [req.params.id] ).then( ( userData ) => userData),
+            db.state_abbrev_byUser().then( ( stateData ) => stateData),
+            db.political_affiliation().then( ( affiliationData ) => affiliationData)
+        ]
+        Promise.all(promises).then( response => {
+            // console.log('all response data', response[0], '\n\n', response[1], '\n\n', response[2])
+            res.send(
+                [
+                    Object.assign({}, response[0][0], {
+                        state_abbrev: response[1].filter( x => x.id === response[0][0].state_id)[0].state_abbrev,
+                        political_affiliation: response[2].filter( x => x.id === response[0][0].political_affiliation_id)[0].political_affiliation
+                    })
+                ]
+            )
         })
     }
-
-
-
 }

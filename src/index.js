@@ -16,8 +16,9 @@ import { fade } from 'material-ui/utils/colorManipulator'
     textColor: Colors.darkBlack,
     primary1Color: fade(Colors.blueGrey500, 0.84),
     primary2Color: Colors.blueGrey200,
-    accent1Color: fade(Colors.red400, 0.64),
-    pickerHeaderColor: fade(Colors.pinkA400, 0.05),
+    accent1Color: fade(Colors.red900, 0.85),
+    accent2Color: fade(Colors.red900, 0.85),
+    pickerHeaderColor: fade(Colors.red900, 0.85),
   },
   appBar: {
     height: 60,

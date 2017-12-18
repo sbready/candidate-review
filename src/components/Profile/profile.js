@@ -33,6 +33,8 @@ class Profile extends Component {
         return (
             <div className="profile-template">
                 <MatAppBar />
+                <div className='profile-background-image'>
+                </div>
                 <div className='profile-styled-contents'>
                     <div className='profile-avatar'>
                         <Avatar src='imageurl' size={100} style={style} />
@@ -40,7 +42,7 @@ class Profile extends Component {
                     <div className='profile-header'>
                         <div className="profile-candidate-info">
                             <h1>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</h1>
-                            <p>{this.state.userInfo.state_id}(state id)-{this.state.userInfo.political_affiliation_id} (Political affiliation id)</p>
+                            <p>{this.state.userInfo.state_abbrev}-{this.state.userInfo.political_affiliation}</p>
                             <div className='profile-website'>
                                 <a href={this.state.userInfo.website}>
                                     {this.state.userInfo.website}
