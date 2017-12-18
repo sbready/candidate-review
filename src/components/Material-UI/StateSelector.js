@@ -39,7 +39,7 @@ class StateSelector extends React.Component {
                     hintText='Choose a State'
                     floatingLabelText="State"
                 >
-                    <MenuItem value={ null } primaryText="Choose a State" disabled={true}/>
+                    <MenuItem value='' primaryText="Choose a State" disabled={true}/>
                     {this.state.states.map(( e, i ) => {
                         return <MenuItem key={i} primaryText={e.state_name} />
                     })}

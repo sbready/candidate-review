@@ -24,7 +24,7 @@ class MatAppBar extends React.Component {
 
         const rightButtons = (
             <div style={{padding: '10px'}}>
-                <RaisedButton label="Login" onClick={this.gotoAuth}/>
+                <RaisedButton label="Login" onClick={this.gotoAuth} />
                 <IconButton onClick={this.openDrawer}><Menu/></IconButton>
             </div>
         )
@@ -38,7 +38,7 @@ class MatAppBar extends React.Component {
                     onRequestChange={(open) => this.setState({ open })}
                     openSecondary={true}
                 >
-                <MenuList closeDrawer={this.closeDrawer}/>
+                    <MenuList closeDrawer={this.closeDrawer}/>
                 </Drawer>
                 <AppBar
                     // style={{backgroundColor: 'rgba(250, 150, 0, 0.3'}}

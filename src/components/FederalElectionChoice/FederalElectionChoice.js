@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from 'axios';
+import './../FederalElectionChoice/FederalElectionChoice.css'
 
 import MatAppBar from './../Material-UI/MatAppBar'
 import StateSelector from './../Material-UI/StateSelector'
@@ -38,15 +39,33 @@ class FederalElectionChoice extends Component {
 
   render() {
     return (
-      <div className="StateLandingChoice">
+      <div className="FederalElectionChoice">
+
         <MatAppBar/>
-        {this.props.match.params.state}
-        
-        <StateSelector/>
-        
-        <h2>Select the type of federal election you want information about</h2>
-        <button onClick={ e => this.handleClick( e )} name='Senate'>Senate</button>
-        <button onClick={ e => this.handleClick( e )} name='House'>House of Representatives</button>
+
+        <div className='federal-choice-content'>
+
+          <div className='StateLabel'>
+            <h1>{this.props.match.params.state}</h1>
+          </div>
+
+          <div className='state-selector'>
+            <StateSelector />
+          </div>
+
+          <div className='federal-choice-prompt'>
+            <h2>Select a Federal Election:</h2>
+          </div>
+
+          <div className='federal-landing-buttons'>
+
+            <button className='button' onClick={ e => this.handleClick( e )} name='Senate'>Senate</button>
+            <button className='button' onClick={ e => this.handleClick( e )} name='House'>House of Representatives</button>
+          
+          </div>
+
+        </div>
+
       </div>
     );
   }

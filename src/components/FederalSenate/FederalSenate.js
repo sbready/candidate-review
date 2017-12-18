@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-
+import './../FederalSenate/FederalSenate.css'
 import MatAppBar from './../Material-UI/MatAppBar'
 import StateSelector from './../Material-UI/StateSelector'
 import Candidatepop from './../Candidates/Candidatepop'
@@ -47,18 +47,30 @@ class FederalSenate extends Component {
   render() {
     return (
       <div className="StateLandingChoice">
+
         <MatAppBar/>
-        {this.props.match.params.state}
-        <StateSelector/>
-        <h2>Select a Candidate</h2>
+      
+        <div className='federal-choice-content'>
 
-        <div>
-          {this.state.popArray.map( ( e, i ) => {
-            return  <Candidatepop candidate_id={e.id} key={i} handleClick={this.handleClick}/>
-          })}
+          <div className='StateLabel'>
+            <h1>{this.props.match.params.state}</h1>
+          </div>
+
+          <div className='state-selector'>
+            <StateSelector />
+          </div>
+
+          <div className='federal-choice-prompt'>
+            <h2>Select a Candidate:</h2>
+          </div>
+
+          <div className='candidate-cards'>
+            {this.state.popArray.map( ( e, i ) => {
+              return  <Candidatepop candidate_id={e.id} key={i} handleClick={this.handleClick}/>
+            })}
+          </div>
+
         </div>
-
-
       </div>
     );
   }

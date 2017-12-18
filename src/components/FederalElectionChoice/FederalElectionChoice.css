@@ -1,0 +1,61 @@
+.FederalElectionChoice {
+
+}
+    
+.federal-choice-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.StateLabel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 40px;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.state-selector {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 10px;
+}
+
+.federal-choice-prompt {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+    margin-bottom: 20px;
+}
+
+.federal-choice-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin-top: 25px;
+}
+
+.button {
+    border: 1px solid black;
+    background: none;
+    padding: 10px;
+    /* padding-right:28px;
+    padding-left: 28px; */
+}

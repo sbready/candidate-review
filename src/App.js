@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import MatAppBar from './components/Material-UI/MatAppBar'
 import StateSelector from './components/Material-UI/StateSelector'
+// import whitehouse from './'
 
 import './reset.css'
 import './App.css';
@@ -22,11 +23,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <MatAppBar/>
-        <StateSelector/>
 
-        <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</h4>
+        <div className='homepage'>
 
+          <div className='title'>
+            <h1>The Candidate Review</h1>
+          </div>
+
+          <div className='state-selector'>
+            <StateSelector />
+          </div>
+
+          <div className='homeText'>
+            <h4>An enlightened citizenry is indispensable for the proper functioning of a republic. Self-government is not possible unless the citizens are educated sufficiently to enable them to exercise oversight. It is therefore imperative that the nation see to it that a suitable education be provided for all its citizens.<br/></h4>
+          </div>
+
+        </div>
       </div>
     );
   }

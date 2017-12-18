@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { fetchAllData } from './../../ducks/users'
 import axios from 'axios'
+import Avatar from 'material-ui/Avatar'
+import Candidatepopstyle from './Candidatepopstyle.css'
 
 class Candidatepop extends React.Component {
 
@@ -26,16 +28,17 @@ class Candidatepop extends React.Component {
 
     render() {
         this.state.userInfo
+        const style = {margin: 5};
         return (
-            <button onClick={ e => this.props.handleClick( this.props.candidate_id )} name={this.props.candidate_id}>
-               <div className="card">
-                    <img src="" alt="Avatar" />
-                    <div className="container">
-                        <h4><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h4> 
-                        <p>{this.state.userInfo.political_affiliation_id}</p> 
-                    </div>
+            <div className='card' onClick={ e => this.props.handleClick( this.props.candidate_id )} name={this.props.candidate_id}>
+                <div className='candidatepop-card-avatar'>
+                    <Avatar src='imageurl' size={55} style={style}/>
                 </div>
-            </button>
+                <div className="candidatepop-container">
+                    <h3><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h3> 
+                    <p>{this.state.userInfo.political_affiliation_id}</p> 
+                </div>
+            </div>
         );
     }
 }

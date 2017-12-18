@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './../StateElectionChoice/StateElectionChoice.css'
 import axios from 'axios';
 
 import MatAppBar from './../Material-UI/MatAppBar'
@@ -38,15 +38,28 @@ class StateElectionChoice extends Component {
       console.log(this.state)
     return (
       <div className="StateLandingChoice">
-      {this.props.match.params.state}
-      <br/>
-        <MatAppBar/>
-        <StateSelector/>
 
-        <h2>Select the type of election you want information about</h2>
-        <button onClick={ e => this.handleClick( e )} name='Governor'>Governor</button>
-        <button onClick={ e => this.handleClick( e )} name='State_Senate'>State Senate</button>
-        <button onClick={ e => this.handleClick( e )} name='State_House'>State House of Representatives</button>
+        <MatAppBar />
+      
+        <div className='state-landing-content'>
+        
+          <div className='StateLabel'>
+            <h1>{this.props.match.params.state}</h1>
+          </div>
+
+          <div className='state-landing-selector'>
+            <StateSelector />
+          </div>
+
+          <div className='state-landing-prompt'>
+            <h2>Select a State Election:</h2>
+          </div>
+          <div className='state-landing-buttons'>
+            <button className='button' onClick={ e => this.handleClick( e )} name='Governor'>Governor</button>
+            <button className='button' onClick={ e => this.handleClick( e )} name='State_Senate'>State Senate</button>
+            <button className='button' onClick={ e => this.handleClick( e )} name='State_House'>State House of Representatives</button>
+          </div>
+      </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ import StateSelector from './../Material-UI/StateSelector'
 
 class StateLandingChoice extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -16,12 +16,12 @@ class StateLandingChoice extends Component {
       state: props.match.params.state,
       value: ''
     }
-    this.handleChange=this.handleChange.bind(this)
-    this.handleClick=this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    axios.get('/api/state_names').then(( states ) => {
+    axios.get('/api/state_names').then((states) => {
       this.setState({
         states: states.data
       })
@@ -29,36 +29,53 @@ class StateLandingChoice extends Component {
   }
 
   handleChange(e) {
-      this.props.history.push(`/state/${e.target.innerText}`)
-  } 
+    this.props.history.push(`/state/${e.target.innerText}`)
+  }
 
   handleClick(e) {
-      this.props.history.push(`/state/${this.state.state}/${e.target.name}`)
+    this.props.history.push(`/state/${this.state.state}/${e.target.name}`)
   }
 
   render() {
     return (
       <div className="StateLandingChoice">
-      
-        <MatAppBar/>
+
+        <MatAppBar />
+
         <div className='state-landing-content'>
+        
           <div className='StateLabel'>
             <h1>{this.props.match.params.state}</h1>
           </div>
-          <div className='state-landing-selector'>
-            <StateSelector/>
-          </div>
-          <div className='state-landing-prompt'>
-            <h2>Select the type of election you want information about</h2>
-          </div>
-          <div className='state-landing-buttons'>
-            <button onClick={ e => this.handleClick( e )} name='State_Election'>State Elections</button>
-            <button onClick={ e => this.handleClick( e )} name='Federal_Election'>Federal Elections</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
 
-export default withRouter(StateLandingChoice);
+          <div className='state-landing-selector'>
+            <StateSelector />
+          </div>
+
+          <div className='state-landing-prompt'>
+            <h2>Select an election type:</h2>
+          </div>
+
+          <div className='state-landing-buttons'>
+            <button className='button' onClick={e => this.handleClick(e)} name='State_Election'>State Elections</button>
+            <button className='button' onClick={e => this.handleClick(e)} name='Federal_Election'>Federal Elections</button>
+          </div>
+
+        </div>
+
+      </div>
+          );
+        }
+      }
+      
+      export default withRouter(StateLandingChoice);
+
+
+
+// bottons for desktop -- https://codepen.io/dylanbaumann/pen/yewbaQ
+      // <div class="container">
+      //   <a href="#" class="button" onClick={e => this.handleClick(e)} name='State_Election'>State Election</a>
+      // </div>
+      // <div class="container">
+      //   <a href="#" class="button" onClick={e => this.handleClick(e)} name='Federal_Election'>Federal Election</a>
+      // </div>

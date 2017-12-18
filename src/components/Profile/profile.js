@@ -18,77 +18,77 @@ class Profile extends Component {
         }
     }
 
-    componentDidMount(){
-        axios.get(`/api/fetch_all_data/${this.props.match.params.Profile}`).then(( userInfo ) => {
+    componentDidMount() {
+        axios.get(`/api/fetch_all_data/${this.props.match.params.Profile}`).then((userInfo) => {
             this.setState({
                 userInfo: userInfo.data[0]
             })
-        }) 
+        })
 
     }
 
     render() {
         console.log(this.state.userInfo)
-        const style = {margin: 5};
+        const style = { margin: 5 };
         return (
-               <div className="profile-template">
-                    <MatAppBar/>
-                    <div className='profile-styled-contents'>
-                        <div className='profile-avatar'>
-                            <Avatar src='imageurl' size={100} style={style}/>
-                        </div>
-                        <div className='profile-header'>
-                            <div className="profile-candidate-info">
-                                <h1>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</h1> 
-                                <p>{this.state.userInfo.state_id}(state id)-{this.state.userInfo.political_affiliation_id} (Political affiliation id)</p> 
-                                <div className='profile-website'>
-                                    <a href={this.state.userInfo.website}>
-                                        {this.state.userInfo.website}
+            <div className="profile-template">
+                <MatAppBar />
+                <div className='profile-styled-contents'>
+                    <div className='profile-avatar'>
+                        <Avatar src='imageurl' size={100} style={style} />
+                    </div>
+                    <div className='profile-header'>
+                        <div className="profile-candidate-info">
+                            <h1>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</h1>
+                            <p>{this.state.userInfo.state_id}(state id)-{this.state.userInfo.political_affiliation_id} (Political affiliation id)</p>
+                            <div className='profile-website'>
+                                <a href={this.state.userInfo.website}>
+                                    {this.state.userInfo.website}
+                                </a>
+                            </div>
+                            <div className='profile-social-icons'>
+                                <div>
+                                    <a href={this.state.userInfo.facebook}>
+                                        <FontAwesome
+                                            className='fa-facebook-square'
+                                            name='Facebook'
+                                            size='1x'
+                                        />
                                     </a>
                                 </div>
-                                <div className='profile-social-icons'>
-                                    <div>
-                                        <a href={this.state.userInfo.facebook}>
-                                            <FontAwesome 
-                                                className='fa-facebook-square' 
-                                                name='Facebook' 
-                                                size='1x'                                        
-                                            />
-                                        </a>
-                                    </div>
-                                    <div className='profile-icon'>
-                                        <a href={this.state.userInfo.twitter}>
-                                            <FontAwesome 
-                                                className='fa-twitter' 
-                                                name='Twitter' 
-                                                size='1x'                                        
-                                            />                                    
-                                        </a>
-                                    </div>
-                                    <div>
-                                        <a href={this.state.userInfo.instagram}>
-                                            <FontAwesome 
-                                                className='fa fa-instagram' 
-                                                name='Instagram' 
-                                                size='1x'                                        
-                                            />                                    
-                                        </a>
-                                    </div>
+                                <div className='profile-icon'>
+                                    <a href={this.state.userInfo.twitter}>
+                                        <FontAwesome
+                                            className='fa-twitter'
+                                            name='Twitter'
+                                            size='1x'
+                                        />
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href={this.state.userInfo.instagram}>
+                                        <FontAwesome
+                                            className='fa fa-instagram'
+                                            name='Instagram'
+                                            size='1x'
+                                        />
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div className='profile-bio'>
-                            <h2><b>Get to Know Me</b></h2>
-                            <br/>
-                            <p>{this.state.userInfo.biography}</p>
-                        </div>
-                        <div className='profile-policy'>
-                            <h2><b>Get to Know My Policies</b></h2>
-                            <br/>
-                            <p>{this.state.userInfo.policy}</p>
-                        </div>
+                    </div>
+                    <div className='profile-bio'>
+                        <h2><b>Get to Know Me</b></h2>
+                        <br />
+                        <p>{this.state.userInfo.biography}</p>
+                    </div>
+                    <div className='profile-policy'>
+                        <h2><b>Get to Know My Policies</b></h2>
+                        <br />
+                        <p>{this.state.userInfo.policy}</p>
                     </div>
                 </div>
+            </div>
         );
     }
 
@@ -99,5 +99,5 @@ class Profile extends Component {
 function mapStateToProps(state) {
     return state
 }
-  
+
 export default withRouter(connect(mapStateToProps, { fetchAllData })(Profile))
