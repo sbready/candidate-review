@@ -43,9 +43,9 @@ module.exports = {
         console.log('CHECKREQUSER', req.user)
         let response = req.user.state_id
 
-        !response ? res.redirect('http://165.227.16.30:80/#/addinfocatch')
+        !response ? res.redirect('http://165.227.16.30:3050/#/addinfocatch')
                     :
-                    res.redirect('http://165.227.16.30:80/#/') 
+                    res.redirect('http://165.227.16.30:3050/#/') 
 
     }
 

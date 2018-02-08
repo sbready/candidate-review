@@ -75,8 +75,8 @@ passport.use(new Auth0Strategy({
 //authentication endpoints - complete
 app.get('/auth', passport.authenticate('auth0')) // authenticate auth0
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://165.227.16.30:80/api/check_new_user',
-    failureRedirect: 'http://165.227.16.30:80/#/auth'
+    successRedirect: 'http://165.227.16.30:3050/api/check_new_user',
+    failureRedirect: 'http://165.227.16.30:3050/#/auth'
     })) // set session
 app.get('/auth/verify', function ( req, res ) {
     console.log(req.user)
@@ -87,7 +87,7 @@ app.get('/auth/verify', function ( req, res ) {
     })  // verify logged in user and session
 app.get('/auth/logout', function( req, res ) {
     req.logout()
-    res.redirect('http://165.227.16.30:80/#/')
+    res.redirect('http://165.227.16.30:3050/#/')
     }) // logout
 
 
