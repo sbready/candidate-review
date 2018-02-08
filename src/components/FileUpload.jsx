@@ -39,9 +39,8 @@ class FileUpload extends Component {
     sendPhoto(event){
         event.preventDefault()
 
-        sendToback(this.state).then(response => {
-            this.props.photoUpload( response )
-            console.log(response.data)
+        sendToback(this.state).then( response => {
+            this.props.photoUpload(response.data)
         })
     }
 

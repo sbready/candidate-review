@@ -118,11 +118,11 @@ class UserVerticalStepper extends React.Component {
 
   // Method for Finish Button
   handleFinish = () => {
-    console.log(this.props.photoUpload)
+    console.log('should be a url:\n', this.props.photoUpload.Location)
     let update = this.props.userDataPush(this.state, this.props.photoUpload)
     update.then( () => {
       this.props.history.push('/')
-    })
+    }).catch(console.log)
   }
   
   // Method for Stepper Animations

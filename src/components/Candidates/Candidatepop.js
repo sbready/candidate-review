@@ -27,12 +27,13 @@ class Candidatepop extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         this.state.userInfo
         const style = {margin: 5};
         return (
             <div className='card' onClick={ e => this.props.handleClick( this.props.candidate_id )} name={this.props.candidate_id}>
                 <div className='candidatepop-card-avatar'>
-                    <Avatar src='imageurl' size={55} style={style}/>
+                    <Avatar src={this.state.userInfo.Location} size={55} style={style}/>
                 </div>
                 <div className="candidatepop-container">
                     <h3><b>{this.state.userInfo.name_first} {this.state.userInfo.name_last}</b></h3> 

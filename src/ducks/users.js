@@ -37,7 +37,7 @@ export function getUser(){
 // }
 
 export function userDataPush(UserStepperInfo, image_url){
-    console.log('userducks')
+    console.log('userducks', UserStepperInfo)
     let data = Object.assign( {}, UserStepperInfo, image_url)
     let promise = axios.put('/api/update_user', data)
     .then( res => res.data )

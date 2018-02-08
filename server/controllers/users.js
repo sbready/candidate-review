@@ -24,7 +24,7 @@ module.exports = {
                     
                     console.log(req.body, "HERE IS THE DATA")
                     // console.log(req.body, 'HERE IS THE BODY')
-                    db.upload_photo( [req.body.data.Location, req.user.id] ).then( () => {
+                    db.upload_photo( [req.body.Location, req.user.id] ).then( () => {
 
                         // console.log(updatedUser)
                         db.update_user( [...Object.values(updatedUser)] ).then( obj => {
@@ -43,9 +43,9 @@ module.exports = {
         console.log('CHECKREQUSER', req.user)
         let response = req.user.state_id
 
-        !response ? res.redirect('http://localhost:3000/#/addinfocatch')
+        !response ? res.redirect('http://165.227.16.30:80/#/addinfocatch')
                     :
-                    res.redirect('http://localhost:3000/#/') 
+                    res.redirect('http://165.227.16.30:80/#/') 
 
     }
 

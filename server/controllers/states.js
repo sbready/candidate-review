@@ -32,8 +32,5 @@ module.exports = {
             res.status( status ).send( state_abbrev )
         })
     }
-
-
-
     
 }

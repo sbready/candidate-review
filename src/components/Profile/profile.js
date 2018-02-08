@@ -37,7 +37,7 @@ class Profile extends Component {
                 </div>
                 <div className='profile-styled-contents'>
                     <div className='profile-avatar'>
-                        <Avatar src='imageurl' size={100} style={style} />
+                        <Avatar src={this.state.userInfo.Location} size={100} style={style} />
                     </div>
                     <div className='profile-header'>
                         <div className="profile-candidate-info">

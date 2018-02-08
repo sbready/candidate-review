@@ -32,12 +32,12 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-        maxAge: 100000 //10min
-    }
+    // cookie: {
+    //     maxAge: 100000 //10min
+    // }
 }))
 
-//app.use(express.static(__dirname+ '/../build'))
+app.use(express.static(__dirname+ '/../build'))
 
 
 //passport and session
@@ -75,8 +75,8 @@ passport.use(new Auth0Strategy({
 //authentication endpoints - complete
 app.get('/auth', passport.authenticate('auth0')) // authenticate auth0
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3005/api/check_new_user',
-    failureRedirect: 'http://localhost:3000/#/auth'
+    successRedirect: 'http://165.227.16.30:80/api/check_new_user',
+    failureRedirect: 'http://165.227.16.30:80/#/auth'
     })) // set session
 app.get('/auth/verify', function ( req, res ) {
     console.log(req.user)
@@ -87,7 +87,7 @@ app.get('/auth/verify', function ( req, res ) {
     })  // verify logged in user and session
 app.get('/auth/logout', function( req, res ) {
     req.logout()
-    res.redirect('http://localhost:3000/#/')
+    res.redirect('http://165.227.16.30:80/#/')
     }) // logout
 
 
@@ -122,4 +122,9 @@ passport.deserializeUser(function (ID, done) {
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`╭∩╮（︶︿︶）╭∩╮: ${process.env.SERVER_PORT}`)
+})
+
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 })

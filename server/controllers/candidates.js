@@ -103,7 +103,8 @@ module.exports = {
         let promises = [
             db.user_candidate_join( [req.params.id] ).then( ( userData ) => userData),
             db.state_abbrev_byUser().then( ( stateData ) => stateData),
-            db.political_affiliation().then( ( affiliationData ) => affiliationData)
+            db.political_affiliation().then( ( affiliationData ) => affiliationData),
+            db.photos()
         ]
         Promise.all(promises).then( response => {
             // console.log('all response data', response[0], '\n\n', response[1], '\n\n', response[2])
@@ -111,7 +112,8 @@ module.exports = {
                 [
                     Object.assign({}, response[0][0], {
                         state_abbrev: response[1].filter( x => x.id === response[0][0].state_id)[0].state_abbrev,
-                        political_affiliation: response[2].filter( x => x.id === response[0][0].political_affiliation_id)[0].political_affiliation
+                        political_affiliation: response[2].filter( x => {console.log('politics!', x, response[0][0].political_affiliation_id); return x.id === response[0][0].political_affiliation_id})[0].political_affiliation,
+                        image_url: response[3].filter( x => {console.log('pixorz', x, response[0][0].id); x.user_id === response[0][0].id} )
                     })
                 ]
             )
